@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "motion/react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "@/lib/gsap";
 import { ArrowUpRight, Github, ChevronDown } from "lucide-react";
-import BlurText from "./BlurText";
+import CharSplit from "@/components/CharSplit";
 import { scrollTo } from "@/lib/scrollTo";
 
 const FRAME_COUNT = 192;
@@ -36,55 +37,24 @@ const drawFrame = (canvas: HTMLCanvasElement | null, img: HTMLImageElement) => {
 const ScrollFrameHero = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasWrapperRef = useRef<HTMLDivElement>(null);
+  const heroTextRef = useRef<HTMLDivElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const techBarRef = useRef<HTMLDivElement>(null);
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null);
+  const chevronRef = useRef<HTMLDivElement>(null);
+  const underwaterRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const exitOverlayRef = useRef<HTMLDivElement>(null);
+
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const loadedRef = useRef<Set<number>>(new Set());
   const rafRef = useRef<number>(0);
   const lastFrameRef = useRef<number>(-1);
+  const progressRef = useRef<number>(0);
   const [ready, setReady] = useState(false);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  /* ═══════════════════════════════════════
-     TEXT TIMING (scroll progress 0 → 1)
-     ═══════════════════════════════════════
-     0.00        Hero text visible immediately
-     0.00 – 0.30 Hero text visible (cherry blossoms)
-     0.30 – 0.45 Hero text fades OUT
-     0.50 – 0.60 Underwater text fades IN
-     0.60 – 0.80 Underwater text visible (koi)
-     0.80 – 0.90 Underwater text fades OUT
-     0.90 – 1.00 Fade to dark → content below
-     ═══════════════════════════════════════ */
-
-  // Canvas dolly-zoom — camera pulls back as you scroll
-  const canvasScale = useTransform(scrollYProgress, [0, 1], [1.08, 1.0]);
-
-  // Hero text — visible from the start
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.30, 0.45], [1, 1, 0]);
-  const heroY = useTransform(scrollYProgress, [0, 0.45], [0, -120]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.30, 0.45], [1.05, 1.0, 0.95]);
-
-  // Tech stack bar
-  const techOpacity = useTransform(scrollYProgress, [0, 0.28, 0.40], [1, 1, 0]);
-
-  // Scroll indicator
-  const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.01, 0.10, 0.18], [1, 1, 1, 0]);
-
-  // Underwater text
-  const underwaterOpacity = useTransform(scrollYProgress, [0.50, 0.60, 0.80, 0.88], [0, 1, 1, 0]);
-  const underwaterY = useTransform(scrollYProgress, [0.50, 0.60], [40, 0]);
-  const underwaterScale = useTransform(scrollYProgress, [0.50, 0.60], [0.92, 1.0]);
-
-  // Dark overlays
-  const overlayOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.35, 0.50, 0.55, 0.80, 0.92],
-    [0, 0, 0.15, 0.18, 0.12, 0.3]
-  );
-  const exitOverlay = useTransform(scrollYProgress, [0.85, 1], [0, 1]);
 
   // ─── Find nearest loaded frame ───
   const findNearest = (target: number): number => {
@@ -99,6 +69,133 @@ const ScrollFrameHero = () => {
     return 0;
   };
 
+  // ─── Draw the correct frame based on scroll progress ───
+  const drawCurrentFrame = (progress: number) => {
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = 0;
+      const canvas = canvasRef.current;
+      const imgs = imagesRef.current;
+      if (!canvas || imgs.length === 0 || loadedRef.current.size === 0) return;
+
+      const target = Math.min(Math.floor(progress * (FRAME_COUNT - 1)), FRAME_COUNT - 1);
+      const best = findNearest(target);
+      if (best === lastFrameRef.current) return;
+      lastFrameRef.current = best;
+      const img = imgs[best];
+      if (img?.complete) drawFrame(canvas, img);
+    });
+  };
+
+  // ─── GSAP SCROLL TIMELINE ───
+  useGSAP(() => {
+    if (!containerRef.current) return;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        onUpdate: (self) => {
+          progressRef.current = self.progress;
+          drawCurrentFrame(self.progress);
+        },
+      },
+    });
+
+    // Canvas dolly-zoom
+    if (canvasWrapperRef.current) {
+      tl.fromTo(canvasWrapperRef.current, { scale: 1.08 }, { scale: 1.0, ease: "none" }, 0);
+    }
+
+    // Hero text — visible from start, fades out 0.30–0.45
+    if (heroTextRef.current) {
+      tl.fromTo(heroTextRef.current,
+        { opacity: 1, y: 0, scale: 1.05 },
+        { opacity: 1, y: 0, scale: 1.0, ease: "none", duration: 0.30 },
+        0
+      );
+      tl.to(heroTextRef.current,
+        { opacity: 0, y: -120, scale: 0.95, ease: "none", duration: 0.15 },
+        0.30
+      );
+    }
+
+    // Tech stack bar — visible, fades out 0.28–0.40
+    if (techBarRef.current) {
+      tl.fromTo(techBarRef.current,
+        { opacity: 1 },
+        { opacity: 1, ease: "none", duration: 0.28 },
+        0
+      );
+      tl.to(techBarRef.current,
+        { opacity: 0, ease: "none", duration: 0.12 },
+        0.28
+      );
+    }
+
+    // Scroll indicator — fades out by 0.18
+    if (scrollIndicatorRef.current) {
+      tl.fromTo(scrollIndicatorRef.current,
+        { opacity: 1 },
+        { opacity: 0, ease: "none", duration: 0.18 },
+        0
+      );
+    }
+
+    // Underwater text — fades in 0.50–0.60, visible, fades out 0.80–0.88
+    if (underwaterRef.current) {
+      gsap.set(underwaterRef.current, { opacity: 0, y: 40, scale: 0.92 });
+      tl.to(underwaterRef.current,
+        { opacity: 1, y: 0, scale: 1.0, ease: "none", duration: 0.10 },
+        0.50
+      );
+      tl.to(underwaterRef.current,
+        { opacity: 1, ease: "none", duration: 0.20 },
+        0.60
+      );
+      tl.to(underwaterRef.current,
+        { opacity: 0, ease: "none", duration: 0.08 },
+        0.80
+      );
+    }
+
+    // Atmosphere overlay
+    if (overlayRef.current) {
+      gsap.set(overlayRef.current, { opacity: 0 });
+      tl.to(overlayRef.current, { opacity: 0, ease: "none", duration: 0.35 }, 0);
+      tl.to(overlayRef.current, { opacity: 0.15, ease: "none", duration: 0.15 }, 0.35);
+      tl.to(overlayRef.current, { opacity: 0.18, ease: "none", duration: 0.05 }, 0.50);
+      tl.to(overlayRef.current, { opacity: 0.12, ease: "none", duration: 0.25 }, 0.55);
+      tl.to(overlayRef.current, { opacity: 0.3, ease: "none", duration: 0.12 }, 0.80);
+    }
+
+    // Exit fade to dark
+    if (exitOverlayRef.current) {
+      gsap.set(exitOverlayRef.current, { opacity: 0 });
+      tl.to(exitOverlayRef.current, { opacity: 0, ease: "none", duration: 0.85 }, 0);
+      tl.to(exitOverlayRef.current, { opacity: 1, ease: "none", duration: 0.15 }, 0.85);
+    }
+  }, { scope: containerRef });
+
+  // ─── Entrance animations (non-scroll) ───
+  useGSAP(() => {
+    if (badgeRef.current) {
+      gsap.from(badgeRef.current, { opacity: 0, y: 20, duration: 0.8, delay: 0.3 });
+    }
+    if (descRef.current) {
+      gsap.from(descRef.current, { opacity: 0, y: 20, duration: 0.7, delay: 0.9 });
+    }
+    if (ctaRef.current) {
+      gsap.from(ctaRef.current, { opacity: 0, y: 20, duration: 0.7, delay: 1.2 });
+    }
+    // Chevron bounce
+    if (chevronRef.current) {
+      gsap.to(chevronRef.current, { y: 6, repeat: -1, yoyo: true, duration: 1, ease: "sine.inOut" });
+    }
+  });
+
   // ─── CANVAS SIZING ───
   useEffect(() => {
     const resize = () => {
@@ -111,7 +208,7 @@ const ScrollFrameHero = () => {
       // Re-draw current frame after resize
       const imgs = imagesRef.current;
       if (imgs.length > 0 && loadedRef.current.size > 0) {
-        const progress = scrollYProgress.get();
+        const progress = progressRef.current;
         const target = Math.min(Math.floor(progress * (FRAME_COUNT - 1)), FRAME_COUNT - 1);
         const best = findNearest(target);
         const img = imgs[best];
@@ -121,7 +218,7 @@ const ScrollFrameHero = () => {
     resize();
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
-  }, [scrollYProgress]);
+  }, []);
 
   // ─── PROGRESSIVE FRAME LOADING ───
   useEffect(() => {
@@ -168,27 +265,9 @@ const ScrollFrameHero = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // ─── DRAW FRAME ON SCROLL (throttled with rAF, skips duplicate frames) ───
-  useMotionValueEvent(scrollYProgress, "change", (progress) => {
-    if (rafRef.current) return;
-    rafRef.current = requestAnimationFrame(() => {
-      rafRef.current = 0;
-      const canvas = canvasRef.current;
-      const imgs = imagesRef.current;
-      if (!canvas || imgs.length === 0 || loadedRef.current.size === 0) return;
-
-      const target = Math.min(Math.floor(progress * (FRAME_COUNT - 1)), FRAME_COUNT - 1);
-      const best = findNearest(target);
-      if (best === lastFrameRef.current) return;
-      lastFrameRef.current = best;
-      const img = imgs[best];
-      if (img?.complete) drawFrame(canvas, img);
-    });
-  });
-
   return (
     <>
-      {/* 250vh on mobile, 400vh on desktop */}
+      {/* 180vh on mobile, 400vh on desktop */}
       <div ref={containerRef} id="home" className="h-[180vh] md:h-[400vh]">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
 
@@ -196,25 +275,25 @@ const ScrollFrameHero = () => {
           <div className="absolute inset-0 bg-[#07070d]" />
 
           {/* ─── CANVAS (dolly-zoom) ─── */}
-          <motion.div className="absolute inset-0" style={{ scale: canvasScale }}>
+          <div ref={canvasWrapperRef} className="absolute inset-0">
             <canvas
               ref={canvasRef}
               className="absolute inset-0 w-full h-full"
               style={{ opacity: ready ? 1 : 0, transition: "opacity 0.4s ease" }}
             />
-          </motion.div>
+          </div>
 
           {/* Atmosphere overlay */}
-          <motion.div
+          <div
+            ref={overlayRef}
             className="absolute inset-0 bg-black pointer-events-none"
-            style={{ opacity: overlayOpacity }}
           />
 
           {/* Exit fade to dark */}
-          <motion.div
+          <div
+            ref={exitOverlayRef}
             className="absolute inset-0 pointer-events-none"
             style={{
-              opacity: exitOverlay,
               background: "linear-gradient(to bottom, rgba(7,7,13,0.3) 0%, rgba(7,7,13,1) 70%)",
             }}
           />
@@ -230,16 +309,14 @@ const ScrollFrameHero = () => {
           {/* ════════════════════════════════════
               SCENE 1: HERO TEXT (cherry blossoms)
               ════════════════════════════════════ */}
-          <motion.div
+          <div
+            ref={heroTextRef}
             className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6"
-            style={{ opacity: heroOpacity, y: heroY, scale: heroScale }}
           >
-            <motion.div
+            <div
+              ref={badgeRef}
               className="liquid-glass rounded-2xl sm:rounded-full px-3 py-2 sm:px-1 sm:py-1 flex flex-col sm:flex-row items-center gap-1 sm:gap-2 mb-4"
               style={{ boxShadow: "0 8px 40px rgba(0,0,0,0.4)" }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
             >
               <span
                 className="rounded-full px-3 py-1 text-xs font-semibold font-body"
@@ -253,35 +330,29 @@ const ScrollFrameHero = () => {
               >
                 Cloud Computing Graduate · DkIT 2025
               </span>
-            </motion.div>
+            </div>
 
             <div style={{ filter: "drop-shadow(0 6px 30px rgba(0,0,0,0.6))" }}>
-              <BlurText
+              <CharSplit
                 text="Hi, I'm Chee Pheng"
-                className="text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] font-heading italic text-white leading-[0.8] max-w-2xl justify-center tracking-[-2px] sm:tracking-[-4px]"
-                delay={100}
-                animateBy="words"
-                direction="bottom"
+                className="text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.5rem] font-heading italic text-white leading-[0.8] max-w-2xl tracking-[-2px] sm:tracking-[-4px]"
+                trigger={false}
               />
             </div>
 
-            <motion.p
+            <p
+              ref={descRef}
               className="mt-4 sm:mt-5 text-xs sm:text-sm md:text-base max-w-[280px] sm:max-w-xl font-body font-light leading-relaxed text-white/90"
               style={{ textShadow: "0 2px 16px rgba(0,0,0,0.7)" }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.9 }}
             >
               A Cloud Computing graduate passionate about building modern web and mobile
               applications. Experienced in full-stack development with TypeScript, React,
               Java, and C#.
-            </motion.p>
+            </p>
 
-            <motion.div
+            <div
+              ref={ctaRef}
               className="flex items-center gap-4 sm:gap-6 mt-5 sm:mt-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 1.2 }}
             >
               <button
                 onClick={() => scrollTo("about")}
@@ -301,13 +372,13 @@ const ScrollFrameHero = () => {
                 GitHub
                 <Github className="h-4 w-4" style={{ filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.6))" }} />
               </a>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* ─── TECH STACK BAR ─── */}
-          <motion.div
+          <div
+            ref={techBarRef}
             className="absolute bottom-16 left-0 right-0 z-10 flex flex-col items-center gap-3"
-            style={{ opacity: techOpacity }}
           >
             <span
               className="liquid-glass rounded-full px-3.5 py-1 text-xs font-medium text-white font-body"
@@ -326,12 +397,12 @@ const ScrollFrameHero = () => {
                 </span>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* ─── SCROLL INDICATOR ─── */}
-          <motion.div
+          <div
+            ref={scrollIndicatorRef}
             className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1.5"
-            style={{ opacity: scrollIndicatorOpacity }}
           >
             <span
               className="text-[10px] font-body text-white/70 uppercase tracking-[0.2em] font-medium"
@@ -339,20 +410,17 @@ const ScrollFrameHero = () => {
             >
               Scroll to explore
             </span>
-            <motion.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-            >
+            <div ref={chevronRef}>
               <ChevronDown className="h-4 w-4 text-white/60" style={{ filter: "drop-shadow(0 1px 4px rgba(0,0,0,0.5))" }} />
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* ════════════════════════════════════
               SCENE 2: UNDERWATER TEXT (koi fish)
               ════════════════════════════════════ */}
-          <motion.div
+          <div
+            ref={underwaterRef}
             className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6"
-            style={{ opacity: underwaterOpacity, y: underwaterY, scale: underwaterScale }}
           >
             <h2
               className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-heading italic text-white mb-5"
@@ -366,7 +434,7 @@ const ScrollFrameHero = () => {
             >
               Explore my projects, education, and transcripts below.
             </p>
-            <motion.div className="mt-8">
+            <div className="mt-8">
               <button
                 onClick={() => scrollTo("about")}
                 className="liquid-glass-strong rounded-full px-6 py-3 text-sm font-medium text-white font-body flex items-center gap-2"
@@ -375,8 +443,8 @@ const ScrollFrameHero = () => {
                 Explore Below
                 <ChevronDown className="h-5 w-5" />
               </button>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </>

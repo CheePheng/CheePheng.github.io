@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "motion/react";
 import { ArrowUp } from "lucide-react";
 
-const ScrollToTop = () => {
+export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -12,22 +11,14 @@ const ScrollToTop = () => {
   }, []);
 
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.button
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.2 }}
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-8 sm:bottom-6 right-4 sm:right-6 z-50 liquid-glass-strong rounded-full p-3 text-white/70 hover:text-white hover:bg-white/10 transition-colors"
-          aria-label="Scroll to top"
-        >
-          <ArrowUp className="h-5 w-5" />
-        </motion.button>
-      )}
-    </AnimatePresence>
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      className={`fixed bottom-8 sm:bottom-6 left-4 sm:left-6 z-50 liquid-glass-strong rounded-full p-3 text-white/70 hover:text-white hover:bg-white/10 transition-all duration-200 ${
+        visible ? "opacity-100 scale-100" : "opacity-0 scale-75 pointer-events-none"
+      }`}
+      aria-label="Scroll to top"
+    >
+      <ArrowUp className="h-5 w-5" />
+    </button>
   );
-};
-
-export default ScrollToTop;
+}

@@ -6,7 +6,8 @@ import CharSplit from "@/components/CharSplit";
 import { scrollTo } from "@/lib/scrollTo";
 
 const FRAME_COUNT = 192;
-const getFrameSrc = (i: number) => `/frames/${String(i).padStart(5, "0")}.webp`;
+const FRAMES_CDN = "https://github.com/CheePheng/CheePheng.github.io/releases/download/assets-v1";
+const getFrameSrc = (i: number) => `${FRAMES_CDN}/${String(i).padStart(5, "0")}.webp`;
 
 /** Draw an image into a canvas — cover on desktop, blended fit on portrait mobile */
 const drawFrame = (canvas: HTMLCanvasElement | null, img: HTMLImageElement) => {

@@ -387,3 +387,68 @@ button:focus-visible, a:focus-visible {
   outline: 2px solid rgba(139, 92, 246, 0.6);
   outline-offset: 2px;
 }
+
+/* ═══════════════════════════════════════════
+   HUB FALLBACK (mobile / reduced-motion)
+   ═══════════════════════════════════════════ */
+.hub-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  animation: hub-drift 14s ease-in-out infinite alternate;
+}
+.hub-orb-1 {
+  width: 600px;
+  height: 600px;
+  top: -10%;
+  left: -5%;
+  background: rgba(139, 92, 246, 0.18);
+}
+.hub-orb-2 {
+  width: 500px;
+  height: 500px;
+  bottom: -10%;
+  right: -5%;
+  background: rgba(34, 211, 238, 0.12);
+  animation-duration: 18s;
+  animation-delay: -4s;
+}
+.hub-orb-3 {
+  width: 400px;
+  height: 400px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(251, 146, 60, 0.08);
+  animation-duration: 20s;
+  animation-delay: -8s;
+}
+@keyframes hub-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -20px) scale(1.1); }
+  100% { transform: translate(-20px, 30px) scale(0.95); }
+}
+.hub-particle {
+  position: absolute;
+  background: rgba(165, 140, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: hub-float linear infinite;
+}
+@keyframes hub-float {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-100vh) translateX(40px); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hub-orb, .hub-particle { animation: none; }
+}
+
+/* ═══════════════════════════════════════════
+   CINEMATIC PAGE — brighter aurora variant
+   ═══════════════════════════════════════════ */
+.aurora-bg-high .aurora-orb-1 { background: rgba(99, 102, 241, 0.20); }
+.aurora-bg-high .aurora-orb-2 { background: rgba(139, 92, 246, 0.17); }
+.aurora-bg-high .aurora-orb-3 { background: rgba(59, 130, 246, 0.14); }
+.aurora-bg-high .aurora-orb-4 { background: rgba(168, 85, 247, 0.12); }

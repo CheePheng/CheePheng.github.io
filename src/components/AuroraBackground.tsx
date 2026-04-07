@@ -1,6 +1,10 @@
 import { useEffect, useRef } from "react";
 
-const AuroraBackground = () => {
+interface AuroraBackgroundProps {
+  intensity?: "default" | "high";
+}
+
+const AuroraBackground = ({ intensity = "default" }: AuroraBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -75,7 +79,10 @@ const AuroraBackground = () => {
   return (
     <>
       {/* CSS aurora mesh gradients */}
-      <div className="aurora-bg" aria-hidden="true">
+      <div
+        className={`aurora-bg${intensity === "high" ? " aurora-bg-high" : ""}`}
+        aria-hidden="true"
+      >
         <div className="aurora-orb aurora-orb-1" />
         <div className="aurora-orb aurora-orb-2" />
         <div className="aurora-orb aurora-orb-3" />

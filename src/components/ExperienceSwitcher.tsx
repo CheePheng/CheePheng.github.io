@@ -5,8 +5,10 @@ import { Grid2X2 } from "lucide-react";
 import { gsap } from "@/lib/gsap";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
+const HOME = { label: "Home", icon: "🏠", path: "/" } as const;
+
 const EXPERIENCES = [
-  { label: "GSAP Scroll", icon: "✨", path: "/" },
+  { label: "GSAP Scroll", icon: "✨", path: "/gsap" },
   { label: "Case Studies", icon: "📖", path: "/case-studies" },
   { label: "Bold Type", icon: "▌", path: "/bold" },
   { label: "192 Frames", icon: "🎬", path: "/cinematic" },
@@ -100,6 +102,31 @@ export default function ExperienceSwitcher() {
         }}
       >
         <div className="p-1.5 flex flex-col gap-0.5">
+          {/* Home entry */}
+          <button
+            onClick={() => handleSelect(HOME.path)}
+            className={`
+              w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-body text-left
+              transition-colors duration-150
+              ${
+                location.pathname === HOME.path
+                  ? "bg-violet-500/25 text-violet-200"
+                  : "text-white/80 hover:bg-white/8 hover:text-white"
+              }
+            `}
+          >
+            <span className="text-base leading-none">{HOME.icon}</span>
+            <span className="flex-1 font-medium">{HOME.label}</span>
+            {location.pathname === HOME.path && (
+              <span className="text-[10px] font-semibold text-violet-400 bg-violet-500/20 px-1.5 py-0.5 rounded-full tracking-wide">
+                NOW
+              </span>
+            )}
+          </button>
+
+          {/* Divider */}
+          <div className="my-1 mx-2 h-px bg-white/10" aria-hidden="true" />
+
           {EXPERIENCES.map((exp) => {
             const isCurrent = location.pathname === exp.path;
             const isLast =
@@ -150,7 +177,7 @@ export default function ExperienceSwitcher() {
         aria-expanded={open}
       >
         <Grid2X2 className="h-4 w-4 shrink-0" />
-        <span className="hidden sm:inline">4 Experiences</span>
+        <span className="hidden sm:inline">Menu</span>
       </button>
     </div>
   );

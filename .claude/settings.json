@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm ci)",
+      "Bash(npm install)",
+      "Bash(node *)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git branch *)",
+      "WebFetch(domain:unsplash.com)",
+      "WebFetch(domain:images.unsplash.com)",
+      "WebFetch(domain:pexels.com)",
+      "WebFetch(domain:images.pexels.com)",
+      "WebFetch(domain:pixabay.com)",
+      "WebFetch(domain:cdn.pixabay.com)"
+    ],
+    "ask": [
+      "Bash(npm install *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(powershell *Invoke-WebRequest*)"
+    ],
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/secrets/**)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "network": {
+      "allowedDomains": [
+        "unsplash.com",
+        "images.unsplash.com",
+        "pexels.com",
+        "images.pexels.com",
+        "pixabay.com",
+        "cdn.pixabay.com",
+        "github.com",
+        "*.npmjs.org",
+        "registry.npmjs.org",
+        "registry.yarnpkg.com"
+      ]
+    }
+  }
+}

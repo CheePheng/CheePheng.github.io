@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hub Page Preview — Light vs Immersive</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* Toggle bar */
+  .toggle-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: center; gap: 12px;
+    padding: 16px;
+    background: rgba(0,0,0,0.85); backdrop-filter: blur(12px);
+  }
+  .toggle-btn {
+    padding: 10px 28px; border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 999px; background: transparent; color: #fff;
+    font-family: 'Barlow', sans-serif; font-size: 15px; cursor: pointer;
+    transition: all 0.3s;
+  }
+  .toggle-btn.active {
+    background: #fff; color: #000; border-color: #fff;
+  }
+  .toggle-btn:hover:not(.active) { background: rgba(255,255,255,0.1); }
+
+  /* ========== OPTION A: LIGHT & CLEAN ========== */
+  .light-page {
+    min-height: 100vh;
+    background: #F5F3EF;
+    padding: 100px 40px 60px;
+    font-family: 'Barlow', sans-serif;
+    display: none;
+  }
+  .light-page.visible { display: block; }
+
+  .light-page .hero-text {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .light-page .hero-text h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    color: #1a1a1a;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+  .light-page .hero-text p {
+    font-size: 18px;
+    color: #666;
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .light-page .subtitle {
+    text-align: center;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #999;
+    margin-bottom: 48px;
+  }
+
+  .light-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto 48px;
+  }
+  .light-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    cursor: pointer;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .light-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  }
+  .light-card .preview {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+  }
+  .light-card .preview img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s;
+  }
+  .light-card:hover .preview img { transform: scale(1.05); }
+  .light-card .card-body {
+    padding: 20px 24px;
+  }
+  .light-card .card-body h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+  .light-card .card-body p {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.5;
+  }
+  .light-card .card-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 12px;
+  }
+
+  /* Card accent colors */
+  .light-card.gsap .preview { background: linear-gradient(135deg, #e8e0ff, #c4b5fd); }
+  .light-card.gsap .card-tag { background: #ede9fe; color: #7c3aed; }
+  .light-card.editorial .preview { background: linear-gradient(135deg, #fde68a, #f59e0b); }
+  .light-card.editorial .card-tag { background: #fef3c7; color: #b45309; }
+  .light-card.bold .preview { background: linear-gradient(135deg, #1a1a1a, #333); }
+  .light-card.bold .card-tag { background: #f3f4f6; color: #111; }
+  .light-card.cinematic .preview { background: linear-gradient(135deg, #0f172a, #1e293b); }
+  .light-card.cinematic .card-tag { background: #e0f2fe; color: #0369a1; }
+
+  /* Fake preview content inside cards */
+  .fake-preview {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.7);
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    font-style: italic;
+  }
+  .light-card.bold .fake-preview { color: rgba(255,255,255,0.9); font-size: 42px; font-style: normal; font-weight: 400; letter-spacing: -2px; }
+  .light-card.cinematic .fake-preview { color: rgba(100,200,255,0.5); font-size: 16px; font-style: normal; letter-spacing: 4px; font-family: 'Barlow', sans-serif; text-transform: uppercase; }
+
+  .light-hint {
+    text-align: center;
+    padding: 16px 24px;
+    background: #eee;
+    border-radius: 12px;
+    max-width: 500px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: #666;
+  }
+  .light-hint span { color: #7c3aed; font-weight: 600; }
+
+  /* ========== OPTION B: IMMERSIVE / ANIMATED ========== */
+  .dark-page {
+    min-height: 100vh;
+    background: #07070d;
+    padding: 100px 40px 60px;
+    font-family: 'Barlow', sans-serif;
+    position: relative;
+    overflow: hidden;
+    display: none;
+  }
+  .dark-page.visible { display: block; }
+
+  /* Animated gradient mesh */
+  .mesh-bg {
+    position: absolute; inset: 0; z-index: 0; overflow: hidden;
+  }
+  .mesh-orb {
+    position: absolute; border-radius: 50%; filter: blur(120px);
+    animation: drift 12s ease-in-out infinite alternate;
+  }
+  .mesh-orb.o1 { width: 600px; height: 600px; background: rgba(139,92,246,0.15); top: -10%; left: -5%; animation-duration: 14s; }
+  .mesh-orb.o2 { width: 500px; height: 500px; background: rgba(34,211,238,0.1); bottom: -10%; right: -5%; animation-duration: 18s; animation-delay: -4s; }
+  .mesh-orb.o3 { width: 400px; height: 400px; background: rgba(251,146,60,0.08); top: 50%; left: 50%; transform: translate(-50%,-50%); animation-duration: 20s; animation-delay: -8s; }
+
+  @keyframes drift {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, -20px) scale(1.1); }
+    100% { transform: translate(-20px, 30px) scale(0.95); }
+  }
+
+  /* Floating particles */
+  .particles {
+    position: absolute; inset: 0; z-index: 1;
+  }
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: rgba(165, 140, 255, 0.4);
+    border-radius: 50%;
+    animation: float linear infinite;
+  }
+  @keyframes float {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-100vh) translateX(40px); opacity: 0; }
+  }
+
+  .dark-content {
+    position: relative; z-index: 2;
+    max-width: 1100px; margin: 0 auto;
+  }
+
+  .dark-page .hero-text {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .dark-page .hero-text h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    color: #fff;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 60px rgba(139,92,246,0.3);
+  }
+  .dark-page .hero-text p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .dark-page .subtitle {
+    text-align: center;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 48px;
+  }
+
+  .dark-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+  .dark-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+  }
+  .dark-card::before {
+    content: '';
+    position: absolute; inset: -1px;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(135deg, transparent, transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    transition: background 0.4s;
+  }
+  .dark-card:hover::before {
+    background: linear-gradient(135deg, rgba(139,92,246,0.6), rgba(34,211,238,0.4));
+  }
+  .dark-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255,255,255,0.05);
+    box-shadow: 0 8px 40px rgba(139,92,246,0.15);
+  }
+
+  .dark-card .preview {
+    height: 180px;
+    position: relative;
+  }
+  .dark-card .card-body {
+    padding: 20px 24px;
+  }
+  .dark-card .card-body h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .dark-card .card-body p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.5;
+  }
+  .dark-card .card-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 12px;
+  }
+
+  .dark-card.gsap .preview { background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(99,102,241,0.1)); }
+  .dark-card.gsap .card-tag { background: rgba(139,92,246,0.2); color: #c4b5fd; }
+  .dark-card.editorial .preview { background: linear-gradient(135deg, rgba(251,191,36,0.15), rgba(245,158,11,0.1)); }
+  .dark-card.editorial .card-tag { background: rgba(251,191,36,0.15); color: #fcd34d; }
+  .dark-card.bold .preview { background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)); }
+  .dark-card.bold .card-tag { background: rgba(255,255,255,0.1); color: #e5e7eb; }
+  .dark-card.cinematic .preview { background: linear-gradient(135deg, rgba(34,211,238,0.12), rgba(59,130,246,0.08)); }
+  .dark-card.cinematic .card-tag { background: rgba(34,211,238,0.15); color: #67e8f9; }
+
+  .dark-card .fake-preview {
+    color: rgba(255,255,255,0.3);
+  }
+  .dark-card.bold .fake-preview { color: rgba(255,255,255,0.6); }
+  .dark-card.cinematic .fake-preview { color: rgba(34,211,238,0.3); }
+
+  .dark-hint {
+    text-align: center;
+    padding: 16px 24px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    max-width: 500px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+  }
+  .dark-hint span { color: #c4b5fd; font-weight: 600; }
+
+  /* Enter button on hover */
+  .enter-label {
+    position: absolute; bottom: 16px; right: 16px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 12px; font-weight: 500;
+    letter-spacing: 1px; text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .light-card:hover .enter-label,
+  .dark-card:hover .enter-label { opacity: 1; }
+  .light-card .enter-label { background: #7c3aed; color: #fff; }
+  .dark-card .enter-label { background: rgba(139,92,246,0.3); color: #c4b5fd; border: 1px solid rgba(139,92,246,0.4); }
+</style>
+</head>
+<body>
+
+<!-- Toggle -->
+<div class="toggle-bar">
+  <button class="toggle-btn active" onclick="show('light')">Option A: Light & Clean</button>
+  <button class="toggle-btn" onclick="show('dark')">Option B: Immersive Dark</button>
+</div>
+
+<!-- OPTION A: Light & Clean -->
+<div class="light-page visible" id="light">
+  <div class="hero-text">
+    <h1>Chee Pheng</h1>
+    <p>Explore my work in the style that speaks to you.</p>
+  </div>
+  <div class="subtitle">Choose Your Experience</div>
+
+  <div class="light-cards">
+    <div class="light-card gsap">
+      <div class="preview">
+        <div class="fake-preview">Kinetic Typography</div>
+        <span class="enter-label">Enter</span>
+      </div>
+      <div class="card-body">
+        <h3>GSAP Scroll</h3>
+        <p>Scroll-driven animations, horizontal project gallery, parallax effects.</p>
+        <span class="card-tag">Interactive</span>
+      </div>
+    </div>
+
+    <div class="light-card editorial">
+      <div class="preview">
+        <div class="fake-preview">Narrative Cards</div>
+        <span class="enter-label">Enter</span>
+      </div>
+      <div class="card-body">
+        <h3>Case Studies</h3>
+        <p>In-depth project stories with problem, solution, and impact.</p>
+        <span class="card-tag">Editorial</span>
+      </div>
+    </div>
+
+    <div class="light-card bold">
+      <div class="preview">
+        <div class="fake-preview">BOLD</div>
+        <span class="enter-label">Enter</span>
+      </div>
+      <div class="card-body">
+        <h3>Bold Typography</h3>
+        <p>Oversized headings, high contrast, masonry project grid.</p>
+        <span class="card-tag">Minimal</span>
+      </div>
+    </div>
+
+    <div class="light-card cinematic">
+      <div class="preview">
+        <div class="fake-preview">192 FRAMES</div>
+        <span class="enter-label">Enter</span>
+      </div>
+      <div class="card-body">
+        <h3>192 Frames</h3>
+        <p>Cinematic scroll animation with aurora particles and frame sequences.</p>
+        <span class="card-tag">Cinematic</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="light-hint">
+    You can switch between experiences anytime using the <span>floating pill</span> at the bottom-right corner.
+  </div>
+</div>
+
+<!-- OPTION B: Immersive Dark -->
+<div class="dark-page" id="dark">
+  <!-- Animated mesh bg -->
+  <div class="mesh-bg">
+    <div class="mesh-orb o1"></div>
+    <div class="mesh-orb o2"></div>
+    <div class="mesh-orb o3"></div>
+  </div>
+
+  <!-- Particles -->
+  <div class="particles" id="particles"></div>
+
+  <div class="dark-content">
+    <div class="hero-text">
+      <h1>Chee Pheng</h1>
+      <p>Explore my work in the style that speaks to you.</p>
+    </div>
+    <div class="subtitle">Choose Your Experience</div>
+
+    <div class="dark-cards">
+      <div class="dark-card gsap">
+        <div class="preview">
+          <div class="fake-preview">Kinetic Typography</div>
+          <span class="enter-label">Enter</span>
+        </div>
+        <div class="card-body">
+          <h3>GSAP Scroll</h3>
+          <p>Scroll-driven animations, horizontal project gallery, parallax effects.</p>
+          <span class="card-tag">Interactive</span>
+        </div>
+      </div>
+
+      <div class="dark-card editorial">
+        <div class="preview">
+          <div class="fake-preview">Narrative Cards</div>
+          <span class="enter-label">Enter</span>
+        </div>
+        <div class="card-body">
+          <h3>Case Studies</h3>
+          <p>In-depth project stories with problem, solution, and impact.</p>
+          <span class="card-tag">Editorial</span>
+        </div>
+      </div>
+
+      <div class="dark-card bold">
+        <div class="preview">
+          <div class="fake-preview">BOLD</div>
+          <span class="enter-label">Enter</span>
+        </div>
+        <div class="card-body">
+          <h3>Bold Typography</h3>
+          <p>Oversized headings, high contrast, masonry project grid.</p>
+          <span class="card-tag">Minimal</span>
+        </div>
+      </div>
+
+      <div class="dark-card cinematic">
+        <div class="preview">
+          <div class="fake-preview">192 FRAMES</div>
+          <span class="enter-label">Enter</span>
+        </div>
+        <div class="card-body">
+          <h3>192 Frames</h3>
+          <p>Cinematic scroll animation with aurora particles and frame sequences.</p>
+          <span class="card-tag">Cinematic</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dark-hint">
+      You can switch between experiences anytime using the <span>floating pill</span> at the bottom-right corner.
+    </div>
+  </div>
+</div>
+
+<script>
+  // Toggle
+  function show(which) {
+    document.getElementById('light').classList.toggle('visible', which === 'light');
+    document.getElementById('dark').classList.toggle('visible', which === 'dark');
+    document.querySelectorAll('.toggle-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', (i === 0 && which === 'light') || (i === 1 && which === 'dark'));
+    });
+  }
+
+  // Generate particles for dark version
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (-Math.random() * 15) + 's';
+    p.style.width = (1 + Math.random() * 2) + 'px';
+    p.style.height = p.style.width;
+    container.appendChild(p);
+  }
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import GsapHero from "@/components/gsap/GsapHero";
-import HorizontalScrollProjects from "@/components/gsap/HorizontalScrollProjects";
+import SplitScrollProjects from "@/components/gsap/SplitScrollProjects";
 import AboutContent from "@/components/AboutContent";
 import TranscriptsContent from "@/components/TranscriptsContent";
 import ContactContent from "@/components/ContactContent";
@@ -20,7 +20,7 @@ export default function GsapHomePage() {
       <div className="section-divider" />
       <AboutContent theme="gsap" />
       <div className="section-divider" />
-      <HorizontalScrollProjects />
+      <SplitScrollProjects />
       <div className="section-divider" />
       <TranscriptsContent theme="gsap" />
       <div className="section-divider" />

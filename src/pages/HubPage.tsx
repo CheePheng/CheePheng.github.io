@@ -1,7 +1,11 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import Navbar from "@/components/Navbar";
 import HubFallback from "@/components/hub/HubFallback";
 import HubOverlay from "@/components/hub/HubOverlay";
+import HubAbout from "@/components/hub/HubAbout";
+import HubResume from "@/components/hub/HubResume";
+import ContactContent from "@/components/ContactContent";
 
 // Lazy-load the 3D scene so Three.js only loads when actually rendered
 const FloatingIslandsScene = lazy(
@@ -42,28 +46,38 @@ export default function HubPage() {
   const use3D = shouldRender3D === true;
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-[#07070d]">
-      {/* Background layer */}
-      {use3D ? (
-        <Suspense fallback={<HubFallback />}>
-          <FloatingIslandsScene />
-        </Suspense>
-      ) : (
-        <HubFallback />
-      )}
+    <div className="relative min-h-screen w-full bg-[#07070d]">
+      <Navbar theme="gsap" />
 
-      {/* Subtle vignette to push focus to center text */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, transparent 30%, rgba(7,7,13,0.6) 100%)",
-        }}
-        aria-hidden="true"
-      />
+      {/* Hero viewport — 3D scene + overlay + cards, exactly one screen tall */}
+      <div className="relative h-screen w-full overflow-hidden">
+        {/* Background layer */}
+        {use3D ? (
+          <Suspense fallback={<HubFallback />}>
+            <FloatingIslandsScene />
+          </Suspense>
+        ) : (
+          <HubFallback />
+        )}
 
-      {/* HTML overlay (heading + cards) */}
-      <HubOverlay />
+        {/* Subtle vignette to push focus to center text */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse at center, transparent 30%, rgba(7,7,13,0.6) 100%)",
+          }}
+          aria-hidden="true"
+        />
+
+        {/* HTML overlay (heading + cards) — owns id="projects" */}
+        <HubOverlay />
+      </div>
+
+      {/* Lean in-page sections so Navbar anchors resolve */}
+      <HubAbout />
+      <HubResume />
+      <ContactContent theme="gsap" />
     </div>
   );
 }

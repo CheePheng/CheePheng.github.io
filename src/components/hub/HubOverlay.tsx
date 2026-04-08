@@ -45,8 +45,9 @@ export default function HubOverlay() {
   );
 
   return (
-    <div
+    <section
       ref={containerRef}
+      id="projects"
       className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 py-20 pointer-events-none"
     >
       {/* Heading */}
@@ -73,6 +74,6 @@ export default function HubOverlay() {
         Switch experiences anytime using the{" "}
         <span className="text-violet-300/80 font-medium">menu</span> at the bottom-right.
       </p>
-    </div>
+    </section>
   );
 }

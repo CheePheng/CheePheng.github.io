@@ -21,7 +21,7 @@ const AuroraBackground = ({ intensity = "default" }: AuroraBackgroundProps) => {
     if (!ctx) return;
 
     let animationId: number;
-    let particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number }[] = [];
+    const particles: { x: number; y: number; vx: number; vy: number; size: number; opacity: number }[] = [];
 
     const resize = () => {
       canvas.width = window.innerWidth;

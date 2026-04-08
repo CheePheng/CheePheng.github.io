@@ -29,7 +29,7 @@ export const projects: Project[] = [
     category: "ai",
     repo: "CoPilot",
     featured: true,
-    thumbnail: "/generated/projects/copilot.jpg",
+    thumbnail: "/generated/projects/u_copilot.jpg",
     problem:
       "Job seekers struggle to practice interviews realistically without access to a live interviewer, leaving them underprepared for high-stakes moments.",
     solution:
@@ -46,7 +46,7 @@ export const projects: Project[] = [
     category: "ai",
     repo: "PartyAI",
     featured: true,
-    thumbnail: "/generated/projects/partyai.jpg",
+    thumbnail: "/generated/projects/u_partyai.jpg",
     problem:
       "Traditional party games become repetitive quickly, and hosting groups often struggle to keep energy high throughout an event.",
     solution:
@@ -63,7 +63,7 @@ export const projects: Project[] = [
     category: "web",
     repo: "KinshipPro",
     featured: true,
-    thumbnail: "/generated/projects/kinshippro.jpg",
+    thumbnail: "/generated/projects/u_kinshippro.jpg",
     problem:
       "Chinese kinship terminology is highly complex, with over 200 distinct terms that vary by generation, gender, and lineage side — impossible to memorise for most learners.",
     solution:
@@ -80,7 +80,7 @@ export const projects: Project[] = [
     category: "ai",
     repo: "AdCopyGen",
     featured: true,
-    thumbnail: "/generated/projects/adcopygen.jpg",
+    thumbnail: "/generated/projects/u_adcopygen.jpg",
     problem:
       "Small businesses and freelancers lack the budget for professional copywriters, yet poorly written ads directly hurt conversion rates.",
     solution:

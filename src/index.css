@@ -350,6 +350,31 @@
 }
 
 /* ═══════════════════════════════════════════
+   BOLD — BRUTALIST TILES
+   ═══════════════════════════════════════════ */
+
+.bold-tile {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  background: #0a0a0a;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.bold-tile:hover {
+  border-color: rgba(255, 255, 255, 0.85);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 rgba(255, 255, 255, 0.85);
+}
+.bold-tile-number {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(4rem, 10vw, 8rem);
+  line-height: 0.85;
+  color: rgba(255, 255, 255, 0.95);
+  mix-blend-mode: difference;
+}
+
+/* ═══════════════════════════════════════════
    PREMIUM SECTION BACKGROUNDS
    ═══════════════════════════════════════════ */
 

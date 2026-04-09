@@ -42,7 +42,7 @@ export default function SplitScrollProjects() {
       const st = ScrollTrigger.create({
         trigger: section,
         start: "top top",
-        end: () => `+=${window.innerHeight * total}`,
+        end: () => `+=${window.innerHeight * total * 0.85}`,
         pin: pin,
         scrub: 0.5,
         onUpdate: (self) => {
@@ -71,15 +71,16 @@ export default function SplitScrollProjects() {
         ref={sectionRef}
         id="projects"
         className="relative"
-        style={{ height: `${featured.length * 100}vh` }}
+        style={{ height: `${featured.length * 85}vh` }}
       >
         <div className="ssp-pin relative h-screen w-full overflow-hidden">
           {/* Section header */}
-          <div className="absolute top-10 left-12 z-20 flex items-center gap-3">
-            <span className="w-8 h-px bg-violet-400/60" />
-            <span className="text-[10px] font-body font-semibold text-violet-300/70 uppercase tracking-[0.3em]">
-              Selected Work · 04 Beats
+          <div className="absolute top-10 left-12 z-20 flex items-center gap-4">
+            <span className="w-10 h-px bg-violet-400/60" />
+            <span className="font-body text-[10px] font-semibold text-violet-300/80 uppercase tracking-[0.35em]">
+              Motion Dossier
             </span>
+            <span className="font-heading italic text-white/40 text-sm">— Four Beats</span>
           </div>
 
           {/* Split layout */}
@@ -90,47 +91,59 @@ export default function SplitScrollProjects() {
                 {featured.map((project, i) => (
                   <div
                     key={project.slug}
-                    className="absolute inset-0 transition-opacity duration-700 ease-out"
+                    className="absolute inset-0"
                     style={{
                       opacity: activeIndex === i ? 1 : 0,
                       transform:
                         activeIndex === i
-                          ? "translateY(0)"
+                          ? "translateY(0) translateX(0)"
                           : activeIndex > i
-                            ? "translateY(-20px)"
-                            : "translateY(20px)",
-                      transitionProperty: "opacity, transform",
+                            ? "translateY(-40px) translateX(-20px)"
+                            : "translateY(40px) translateX(20px)",
+                      filter: activeIndex === i ? "blur(0px)" : "blur(6px)",
+                      transitionProperty: "opacity, transform, filter",
+                      transitionDuration: "900ms",
+                      transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
                     }}
                   >
-                    <div className="text-[11px] font-body font-semibold text-violet-300/60 uppercase tracking-[0.3em] mb-4">
-                      {String(i + 1).padStart(2, "0")} / {String(featured.length).padStart(2, "0")}
+                    <div className="text-[11px] font-body font-semibold text-violet-300/70 uppercase tracking-[0.35em] mb-6 flex items-center gap-3">
+                      <span className="w-6 h-px bg-violet-400/60" />
+                      Chapter {String(i + 1).padStart(2, "0")}
                     </div>
-                    <h3 className="font-heading italic text-white text-6xl lg:text-7xl leading-[0.95] tracking-tight mb-6">
+
+                    {/* Massive ghost numeral behind heading */}
+                    <div className="font-heading italic text-white/[0.06] text-[14rem] leading-[0.8] tracking-tight absolute -top-8 -left-4 pointer-events-none select-none">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+
+                    <h3 className="relative font-heading italic text-white text-5xl lg:text-7xl leading-[0.95] tracking-tight mb-6">
                       {project.name}
                     </h3>
-                    <p className="font-body text-white/60 text-base lg:text-lg leading-relaxed mb-6 max-w-[480px]">
+
+                    <p className="relative font-body text-white/55 text-base lg:text-lg leading-relaxed mb-8 max-w-[460px]">
                       {project.description}
                     </p>
-                    <div className="flex flex-wrap gap-2 mb-8">
-                      {project.tech.map((t) => (
+
+                    <div className="relative flex flex-wrap gap-2 mb-10">
+                      {project.tech.slice(0, 4).map((t) => (
                         <span
                           key={t}
-                          className={`px-3 py-1 rounded-full text-[11px] font-body font-medium ${
-                            techColors[t] ?? "bg-white/[0.06] text-white/50"
-                          }`}
+                          className="px-2.5 py-0.5 text-[10px] font-body font-semibold uppercase tracking-[0.15em] text-white/60 border border-white/15"
                         >
                           {t}
                         </span>
                       ))}
                     </div>
+
                     <Link
                       to={`/projects/${project.slug}`}
-                      className="inline-flex items-center gap-2 text-sm font-body text-violet-300 hover:text-violet-200 transition-colors group"
+                      className="relative inline-flex items-center gap-3 text-sm font-body font-medium text-white group/link"
                     >
-                      <span className="border-b border-violet-400/40 group-hover:border-violet-300 pb-0.5">
-                        View Case Study
+                      <span className="relative">
+                        <span className="absolute -bottom-1 left-0 right-0 h-px bg-violet-400/60 group-hover/link:bg-violet-300 transition-colors" />
+                        Read the case study
                       </span>
-                      <ArrowUpRight className="w-4 h-4" />
+                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
                     </Link>
                   </div>
                 ))}
@@ -142,11 +155,16 @@ export default function SplitScrollProjects() {
               {featured.map((project, i) => (
                 <div
                   key={project.slug}
-                  className="absolute inset-0 transition-all duration-1000 ease-out"
+                  className="absolute inset-0"
                   style={{
                     opacity: activeIndex === i ? 1 : 0,
                     transform:
-                      activeIndex === i ? "scale(1)" : "scale(1.08)",
+                      activeIndex === i
+                        ? "scale(1.02) translateY(0)"
+                        : activeIndex > i
+                          ? "scale(1.12) translateY(-40px)"
+                          : "scale(1.12) translateY(40px)",
+                    transition: "opacity 1000ms cubic-bezier(0.22,1,0.36,1), transform 1400ms cubic-bezier(0.22,1,0.36,1)",
                   }}
                 >
                   {project.thumbnail ? (
@@ -156,8 +174,9 @@ export default function SplitScrollProjects() {
                         alt={project.name}
                         className="absolute inset-0 w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#07070d]/30 to-[#07070d]/80" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#07070d]/70 via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#07070d]/20 to-[#07070d]/85" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#07070d]/80 via-transparent to-[#07070d]/20" />
+                      <div className="absolute inset-0 ring-1 ring-inset ring-white/[0.04]" />
                     </>
                   ) : (
                     <div className="absolute inset-0 bg-gradient-to-br from-violet-900/40 to-indigo-900/40 flex items-center justify-center">
@@ -172,18 +191,25 @@ export default function SplitScrollProjects() {
           </div>
 
           {/* Progress bar */}
-          <div className="absolute bottom-10 left-12 right-12 flex items-center gap-4">
-            <span className="text-[10px] font-body text-white/40 uppercase tracking-[0.2em] tabular-nums">
+          <div className="absolute bottom-12 left-12 right-12 flex items-center gap-6">
+            <span className="font-heading italic text-white text-3xl leading-none tabular-nums">
               {String(activeIndex + 1).padStart(2, "0")}
             </span>
-            <div className="flex-1 h-px bg-white/10 relative overflow-hidden">
+            <div className="flex-1 relative h-px bg-white/10">
               <div
-                className="ssp-progress-fill absolute inset-0 bg-violet-400/60 origin-left"
-                style={{ transform: "scaleX(0)" }}
+                className="ssp-progress-fill absolute inset-y-0 left-0 bg-gradient-to-r from-violet-400/80 to-violet-300/40 origin-left"
+                style={{ transform: "scaleX(0)", transformOrigin: "left", height: "1px" }}
               />
+              {featured.map((_, idx) => (
+                <span
+                  key={idx}
+                  className="absolute top-1/2 -translate-y-1/2 w-px h-2 bg-white/20"
+                  style={{ left: `${(idx / (featured.length - 1)) * 100}%` }}
+                />
+              ))}
             </div>
-            <span className="text-[10px] font-body text-white/40 uppercase tracking-[0.2em] tabular-nums">
-              {String(featured.length).padStart(2, "0")}
+            <span className="font-body text-[10px] text-white/40 uppercase tracking-[0.25em] tabular-nums">
+              of {String(featured.length).padStart(2, "0")}
             </span>
           </div>
         </div>

@@ -78,7 +78,7 @@ export default function HubResume() {
 
         {/* Heading */}
         <h2 className="hub-resume-heading font-heading italic text-4xl md:text-5xl text-white tracking-tight mb-10">
-          Transcripts.
+          Resume.
         </h2>
 
         {/* List */}

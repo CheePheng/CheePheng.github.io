@@ -70,7 +70,7 @@ export default function HubOverlay() {
       </div>
 
       {/* Hint */}
-      <p className="hub-hint mt-10 md:mt-14 text-xs md:text-sm text-white/35 font-body text-center pointer-events-none">
+      <p className="hub-hint hidden md:block mt-10 md:mt-14 text-xs md:text-sm text-white/35 font-body text-center pointer-events-none">
         Switch experiences anytime using the{" "}
         <span className="text-violet-300/80 font-medium">menu</span> at the bottom-right.
       </p>

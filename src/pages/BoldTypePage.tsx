@@ -1,9 +1,7 @@
 import Navbar from "@/components/Navbar";
 import BoldHero from "@/components/bold/BoldHero";
 import MasonryProjects from "@/components/bold/MasonryProjects";
-import AboutContent from "@/components/AboutContent";
-import TranscriptsContent from "@/components/TranscriptsContent";
-import ContactContent from "@/components/ContactContent";
+import BoldLower from "@/components/bold/BoldLower";
 import ScrollToTop from "@/components/ScrollToTop";
 
 export default function BoldTypePage() {
@@ -17,9 +15,7 @@ export default function BoldTypePage() {
       <Navbar theme="bold" />
       <BoldHero />
       <MasonryProjects />
-      <AboutContent theme="bold" />
-      <TranscriptsContent theme="bold" />
-      <ContactContent theme="bold" />
+      <BoldLower />
       <ScrollToTop />
     </div>
   );

@@ -25,8 +25,8 @@ export default function CaseStudiesPage() {
       {/* Featured projects section */}
       <section id="projects" className="relative z-10 py-16 px-6 md:px-16">
         <div className="max-w-6xl mx-auto space-y-6">
-          {featured.map((project) => (
-            <CaseStudyCard key={project.slug} project={project} />
+          {featured.map((project, i) => (
+            <CaseStudyCard key={project.slug} project={project} index={i} />
           ))}
         </div>
       </section>

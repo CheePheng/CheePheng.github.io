@@ -53,6 +53,14 @@ export default function CaseStudyHero() {
         <p className="cs-hero-subtitle mt-6 text-lg md:text-xl font-body font-light text-white/40 max-w-xl leading-relaxed">
           Project Case Studies — exploring problems, solutions, and outcomes.
         </p>
+
+        <div className="cs-hero-meta mt-8 flex items-center gap-6 text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/40">
+          <span>Volume I</span>
+          <span className="h-px w-8 bg-white/20" />
+          <span>Four Studies</span>
+          <span className="h-px w-8 bg-white/20" />
+          <span>2023 — 2025</span>
+        </div>
       </div>
     </section>
   );

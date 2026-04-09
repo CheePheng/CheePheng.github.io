@@ -1,9 +1,7 @@
 import Navbar from "@/components/Navbar";
 import CaseStudyHero from "@/components/casestudy/CaseStudyHero";
 import CaseStudyCard from "@/components/casestudy/CaseStudyCard";
-import AboutContent from "@/components/AboutContent";
-import TranscriptsContent from "@/components/TranscriptsContent";
-import ContactContent from "@/components/ContactContent";
+import CaseStudyLower from "@/components/casestudy/CaseStudyLower";
 import ScrollToTop from "@/components/ScrollToTop";
 import { projects } from "@/data/projects";
 
@@ -31,9 +29,7 @@ export default function CaseStudiesPage() {
         </div>
       </section>
 
-      <AboutContent theme="editorial" />
-      <TranscriptsContent theme="editorial" />
-      <ContactContent theme="editorial" />
+      <CaseStudyLower />
       <ScrollToTop />
     </div>
   );

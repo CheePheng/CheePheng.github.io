@@ -74,6 +74,18 @@ export default function HubPage() {
         <HubOverlay />
       </div>
 
+      {/* Transitional band — bleeds the islands palette into the flat sections */}
+      <div
+        aria-hidden="true"
+        className="relative h-24 md:h-32 w-full overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, transparent 0%, rgba(139,92,246,0.04) 40%, #07070d 100%)",
+        }}
+      >
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-violet-300/20 to-transparent" />
+      </div>
+
       {/* Lean in-page sections so Navbar anchors resolve */}
       <HubAbout />
       <HubResume />

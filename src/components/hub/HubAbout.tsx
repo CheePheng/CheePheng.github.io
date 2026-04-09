@@ -88,7 +88,7 @@ export default function HubAbout() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative w-full px-6 py-24 md:py-32 md:px-16 bg-[#07070d]"
+      className="relative w-full px-6 pt-10 md:pt-14 pb-24 md:pb-32 md:px-16 bg-[#07070d]"
     >
       <div className="max-w-3xl mx-auto">
         {/* Eyebrow */}

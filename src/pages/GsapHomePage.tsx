@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import GsapHero from "@/components/gsap/GsapHero";
-import SplitScrollProjects from "@/components/gsap/SplitScrollProjects";
+import DossierCinemaProjects from "@/components/gsap/DossierCinemaProjects";
 import GsapLower from "@/components/gsap/GsapLower";
 import ScrollToTop from "@/components/ScrollToTop";
 
@@ -16,7 +16,7 @@ export default function GsapHomePage() {
       <Navbar theme="gsap" />
       <GsapHero />
       <div className="section-divider" />
-      <SplitScrollProjects />
+      <DossierCinemaProjects />
       <div className="section-divider" />
       <GsapLower />
       <ScrollToTop />

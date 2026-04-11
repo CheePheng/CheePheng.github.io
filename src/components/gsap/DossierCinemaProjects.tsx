@@ -145,6 +145,126 @@ function BeatDevelopment({ project, active }: { project: Project; active: boolea
   );
 }
 
+function BeatClimax({ project, active }: { project: Project; active: boolean }) {
+  return (
+    <div className="absolute inset-0 isolate">
+      <div className="absolute inset-0 bg-black" />
+      <div className="absolute inset-0 overflow-hidden">
+        {project.thumbnail ? (
+          <img
+            src={project.thumbnail}
+            alt={project.name}
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{
+              transform: active
+                ? "scale(1.02) translateY(0)"
+                : "scale(1.08) translateY(60px)",
+              transition: "transform 1400ms cubic-bezier(0.22, 1, 0.36, 1)",
+            }}
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-violet-950 to-indigo-950" />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/40" />
+      </div>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <h3
+          className="font-heading uppercase text-white mix-blend-difference text-center leading-[0.82] px-8 whitespace-nowrap"
+          style={{
+            fontSize: "18vw",
+            transform: active ? "scale(1)" : "scale(3)",
+            opacity: active ? 1 : 0,
+            transition:
+              "transform 600ms cubic-bezier(0.19, 1, 0.22, 1), opacity 150ms ease-out",
+          }}
+        >
+          {project.name}
+        </h3>
+      </div>
+    </div>
+  );
+}
+
+function BeatEpilogue({ project, active }: { project: Project; active: boolean }) {
+  const rows: { label: string; value: React.ReactNode }[] = [
+    { label: "Category", value: project.category.toUpperCase() },
+    { label: "Tech", value: project.tech.join(" · ") },
+    { label: "Impact", value: project.impact ?? project.description },
+    {
+      label: "Repository",
+      value: (
+        <a
+          href={`https://github.com/CheePheng/${project.repo}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline decoration-white/30 hover:decoration-white"
+        >
+          github.com/CheePheng/{project.repo}
+        </a>
+      ),
+    },
+    {
+      label: "Case Study",
+      value: (
+        <Link
+          to={`/projects/${project.slug}`}
+          className="inline-flex items-center gap-1 underline decoration-white/30 hover:decoration-white"
+        >
+          Read the full dossier
+          <ArrowUpRight className="w-3 h-3" />
+        </Link>
+      ),
+    },
+  ];
+
+  return (
+    <div className="absolute inset-0 grid grid-cols-[1fr_40%] gap-16 px-16 items-center">
+      <div style={{ transform: "translateY(var(--dcp-text-y, 0))" }}>
+        <div className="font-body text-[10px] text-violet-300/70 uppercase tracking-[0.35em] mb-4">
+          Chapter 04 / Epilogue
+        </div>
+        <h3 className="font-heading italic text-white text-5xl lg:text-6xl mb-10">
+          {project.name}
+        </h3>
+        <dl className="max-w-[52ch]">
+          {rows.map(({ label, value }, i) => (
+            <div
+              key={label}
+              className="flex items-baseline gap-6 border-t border-white/15 pt-3 pb-4"
+              style={{
+                transform: active ? "translateY(0)" : "translateY(12px)",
+                opacity: active ? 1 : 0,
+                transition:
+                  "transform 600ms ease-out, opacity 600ms ease-out",
+                transitionDelay: `${i * 80}ms`,
+              }}
+            >
+              <dt className="font-body text-[10px] text-white/40 uppercase tracking-[0.25em] w-28 shrink-0">
+                {label}
+              </dt>
+              <dd className="font-body italic text-white/85 text-sm">{value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+      <div className="aspect-[4/5] relative overflow-hidden ring-1 ring-white/[0.06]">
+        {project.thumbnail && (
+          <img
+            src={project.thumbnail}
+            alt={project.name}
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{
+              transform: active ? "scale(1.02)" : "scale(1.08)",
+              transition: "transform 1400ms cubic-bezier(0.22, 1, 0.36, 1)",
+            }}
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+      </div>
+    </div>
+  );
+}
+
 export default function DossierCinemaProjects() {
   const sectionRef = useRef<HTMLElement>(null);
   const numeralRef = useRef<HTMLDivElement>(null);
@@ -257,6 +377,8 @@ export default function DossierCinemaProjects() {
             >
               {i === 0 && <BeatOpening project={project} active={activeIndex === i} />}
               {i === 1 && <BeatDevelopment project={project} active={activeIndex === i} />}
+              {i === 2 && <BeatClimax project={project} active={activeIndex === i} />}
+              {i === 3 && <BeatEpilogue project={project} active={activeIndex === i} />}
             </div>
           ))}
         </div>

@@ -8,6 +8,143 @@ import { projects, type Project } from "@/data/projects";
 
 const featured = projects.filter((p) => p.featured).slice(0, 4);
 
+function BeatOpening({ project, active }: { project: Project; active: boolean }) {
+  const lines: { el: React.ReactNode; delay: number }[] = [
+    {
+      el: (
+        <div className="font-body text-[10px] text-violet-300/80 uppercase tracking-[0.35em]">
+          Chapter 01 / Dossier
+        </div>
+      ),
+      delay: 0,
+    },
+    {
+      el: (
+        <h3 className="font-heading italic text-white text-4xl mt-3">
+          {project.name}
+        </h3>
+      ),
+      delay: 120,
+    },
+    {
+      el: (
+        <p className="font-body text-white/60 text-sm mt-2 max-w-[40ch]">
+          {project.description}
+        </p>
+      ),
+      delay: 240,
+    },
+  ];
+
+  return (
+    <div className="absolute inset-0">
+      {/* Full-bleed image + parallax */}
+      <div
+        className="absolute inset-0"
+        style={{
+          transform: active
+            ? "scale(1.02) translateY(0)"
+            : "scale(1.05) translateY(40px)",
+          transition: "transform 1200ms cubic-bezier(0.22, 1, 0.36, 1)",
+        }}
+      >
+        {project.thumbnail ? (
+          <img
+            src={project.thumbnail}
+            alt={project.name}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-violet-900/40 to-indigo-900/40 flex items-center justify-center">
+            <span className="font-heading italic text-white/20 text-[20vw]">
+              {project.name[0]}
+            </span>
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#07070d]/85 via-[#07070d]/30 to-transparent" />
+      </div>
+
+      {/* Caption stack — opts into parallax via CSS var */}
+      <div
+        className="absolute bottom-16 left-12 max-w-[520px]"
+        style={{ transform: "translateY(var(--dcp-text-y, 0))" }}
+      >
+        {lines.map(({ el, delay }, i) => (
+          <div
+            key={i}
+            style={{
+              opacity: active ? 1 : 0,
+              filter: active ? "blur(0)" : "blur(8px)",
+              transition:
+                "opacity 700ms ease-out, filter 700ms ease-out",
+              transitionDelay: `${delay}ms`,
+            }}
+          >
+            {el}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function BeatDevelopment({ project, active }: { project: Project; active: boolean }) {
+  return (
+    <div className="absolute inset-0 grid grid-cols-[1fr_auto] gap-12 px-16 items-center">
+      <div
+        className="min-w-0"
+        style={{ transform: "translateY(var(--dcp-text-y, 0))" }}
+      >
+        <div className="font-body text-[10px] text-violet-300/70 uppercase tracking-[0.35em] mb-6">
+          Chapter 02 / Development
+        </div>
+        <h3
+          className="font-heading italic text-white leading-[0.85] whitespace-nowrap"
+          style={{ fontSize: "clamp(3rem, 12vw, 10rem)" }}
+        >
+          {project.name.split("").map((ch, i) => (
+            <span
+              key={i}
+              style={{
+                display: "inline-block",
+                opacity: active ? 1 : 0,
+                filter: active ? "blur(0)" : "blur(10px)",
+                transition: "opacity 700ms ease-out, filter 700ms ease-out",
+                transitionDelay: `${i * 35}ms`,
+              }}
+            >
+              {ch === " " ? "\u00a0" : ch}
+            </span>
+          ))}
+        </h3>
+        <div className="mt-10 flex items-center gap-4 max-w-[60ch]">
+          <span className="h-px flex-1 bg-white/15" />
+          <span className="font-heading italic text-white/60 text-lg">
+            {project.tech.join(" / ")}
+          </span>
+        </div>
+      </div>
+
+      <div className="w-[36vw] max-w-[520px] aspect-[3/4] relative overflow-hidden ring-1 ring-white/[0.06]">
+        {project.thumbnail && (
+          <img
+            src={project.thumbnail}
+            alt={project.name}
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{
+              transform: active
+                ? "scale(1.02) translateY(0)"
+                : "scale(1.1) translateY(40px)",
+              transition: "transform 1400ms cubic-bezier(0.22, 1, 0.36, 1)",
+            }}
+          />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#07070d]/60 to-transparent" />
+      </div>
+    </div>
+  );
+}
+
 export default function DossierCinemaProjects() {
   const sectionRef = useRef<HTMLElement>(null);
   const numeralRef = useRef<HTMLDivElement>(null);
@@ -112,12 +249,16 @@ export default function DossierCinemaProjects() {
             {String(Math.min(activeIndex + 2, total)).padStart(2, "0")}
           </div>
 
-          {/* Temporary beat placeholder — replaced in Task 3 */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <span className="text-white/30 text-6xl font-heading italic">
-              Beat {activeIndex + 1}
-            </span>
-          </div>
+          {featured.map((project, i) => (
+            <div
+              key={project.slug}
+              className="absolute inset-0"
+              style={{ pointerEvents: activeIndex === i ? "auto" : "none" }}
+            >
+              {i === 0 && <BeatOpening project={project} active={activeIndex === i} />}
+              {i === 1 && <BeatDevelopment project={project} active={activeIndex === i} />}
+            </div>
+          ))}
         </div>
       </section>
     );

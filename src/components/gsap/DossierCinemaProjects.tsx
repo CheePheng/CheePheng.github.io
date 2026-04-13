@@ -388,9 +388,59 @@ export default function DossierCinemaProjects() {
 
   return (
     <section id="projects" className="relative py-20 px-6">
-      <h2 className="text-white/40 font-heading italic text-4xl text-center">
-        Dossier Cinema (scaffold — mobile)
-      </h2>
+      <div className="max-w-xl mx-auto">
+        <div className="flex items-center gap-3 mb-4">
+          <span className="w-8 h-px bg-violet-400/60" />
+          <span className="text-[10px] font-body font-semibold text-violet-300/70 uppercase tracking-[0.3em]">
+            Selected Work
+          </span>
+        </div>
+        <h2 className="font-heading italic text-white text-4xl mb-10">
+          Chapters 01 – 04
+        </h2>
+        <div className="space-y-16">
+          {featured.map((project, i) => (
+            <article key={project.slug}>
+              <div className="text-[10px] font-body font-semibold text-violet-300/60 uppercase tracking-[0.3em] mb-3">
+                {String(i + 1).padStart(2, "0")} / {String(featured.length).padStart(2, "0")}
+              </div>
+              {project.thumbnail && (
+                <div className="relative aspect-[16/10] mb-5 overflow-hidden ring-1 ring-white/[0.06]">
+                  <img
+                    src={project.thumbnail}
+                    alt={project.name}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#07070d]/60 to-transparent" />
+                </div>
+              )}
+              <h3 className="font-heading italic text-white text-4xl leading-[0.95] mb-3">
+                {project.name}
+              </h3>
+              <p className="font-body text-white/60 text-sm leading-relaxed mb-4">
+                {project.description}
+              </p>
+              <div className="flex flex-wrap gap-1.5 mb-4">
+                {project.tech.map((t) => (
+                  <span
+                    key={t}
+                    className="border border-white/15 px-2.5 py-0.5 text-[10px] font-body font-semibold uppercase tracking-[0.15em] text-white/55"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <Link
+                to={`/projects/${project.slug}`}
+                className="inline-flex items-center gap-1.5 text-xs font-body italic text-violet-300 underline decoration-violet-300/40 hover:decoration-violet-300"
+              >
+                Read the case study
+                <ArrowUpRight className="w-3 h-3" />
+              </Link>
+            </article>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }

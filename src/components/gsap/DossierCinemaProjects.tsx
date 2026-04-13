@@ -290,19 +290,26 @@ export default function DossierCinemaProjects() {
       if (!pin) return;
       const total = featured.length;
 
+      let prevIdx = -1;
+
       const st = ScrollTrigger.create({
         trigger: section,
         start: "top top",
         end: () => `+=${window.innerHeight * total * 0.65}`,
         pin,
+        pinSpacing: false,
         scrub: 0.3,
+        invalidateOnRefresh: true,
         onUpdate: (self) => {
           progressRef.current = self.progress;
           const idx = Math.min(
             total - 1,
             Math.floor(self.progress * total + 0.0001),
           );
-          setActiveIndex(idx);
+          if (idx !== prevIdx) {
+            prevIdx = idx;
+            setActiveIndex(idx);
+          }
           const localProgress = (self.progress * total) % 1;
           pin.style.setProperty("--dcp-text-y", `${localProgress * -24}px`);
           if (numeralRef.current) {
@@ -333,7 +340,7 @@ export default function DossierCinemaProjects() {
         className="relative"
         style={{ height: `${total * 65}vh` }}
       >
-        <div className="dcp-pin relative h-screen w-full overflow-hidden isolate">
+        <div className="dcp-pin relative z-10 h-screen w-full overflow-hidden isolate">
           {/* Film-reel progress strip */}
           <aside className="absolute left-6 top-1/2 -translate-y-1/2 z-20 flex flex-col items-center gap-3">
             <span className="font-heading italic text-white text-xl tabular-nums leading-none">

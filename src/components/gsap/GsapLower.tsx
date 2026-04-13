@@ -45,7 +45,14 @@ export default function GsapLower() {
   return (
     <div ref={ref} className="relative">
       {/* ── APPROACH ───────────────────────────── */}
-      <section id="about" className="relative py-24 md:py-32 px-6 md:px-16">
+      <section id="about" className="relative overflow-hidden py-24 md:py-32 px-6 md:px-16">
+        <span
+          aria-hidden="true"
+          className="absolute -top-10 right-0 pointer-events-none select-none font-heading italic text-white/[0.035] leading-none"
+          style={{ fontSize: "22vw" }}
+        >
+          05
+        </span>
         <div className="max-w-6xl mx-auto grid md:grid-cols-12 gap-10">
           <div className="md:col-span-4 gl-chapter">
             <div className="flex items-center gap-3 mb-3">

@@ -1,7 +1,7 @@
 export type ExperienceAccent = "violet" | "amber" | "white" | "cyan";
 
 export interface Experience {
-  id: "gsap" | "case-studies" | "bold" | "cinematic";
+  id: "case-studies" | "bold" | "cinematic";
   label: string;
   path: string;
   icon: string;
@@ -11,15 +11,6 @@ export interface Experience {
 }
 
 export const EXPERIENCES: Experience[] = [
-  {
-    id: "gsap",
-    label: "GSAP Scroll",
-    path: "/gsap",
-    icon: "✨",
-    accent: "violet",
-    tagline: "Interactive",
-    description: "Scroll-driven animations & parallax",
-  },
   {
     id: "case-studies",
     label: "Case Studies",

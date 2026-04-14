@@ -5,7 +5,6 @@ import ExperienceSwitcher from "@/components/ExperienceSwitcher";
 import LoadingFallback from "@/components/LoadingFallback";
 
 const HubPage = React.lazy(() => import("@/pages/HubPage"));
-const GsapHomePage = React.lazy(() => import("@/pages/GsapHomePage"));
 const CaseStudiesPage = React.lazy(() => import("@/pages/CaseStudiesPage"));
 const BoldTypePage = React.lazy(() => import("@/pages/BoldTypePage"));
 const CinematicPage = React.lazy(() => import("@/pages/CinematicPage"));
@@ -20,7 +19,6 @@ const App = () => (
         <Routes>
           <Route element={<PageTransition />}>
             <Route path="/" element={<HubPage />} />
-            <Route path="/gsap" element={<GsapHomePage />} />
             <Route path="/case-studies" element={<CaseStudiesPage />} />
             <Route path="/bold" element={<BoldTypePage />} />
             <Route path="/cinematic" element={<CinematicPage />} />

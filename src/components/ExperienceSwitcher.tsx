@@ -8,7 +8,6 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 const HOME = { label: "Home", icon: "🏠", path: "/" } as const;
 
 const EXPERIENCES = [
-  { label: "GSAP Scroll", icon: "✨", path: "/gsap" },
   { label: "Case Studies", icon: "📖", path: "/case-studies" },
   { label: "Bold Type", icon: "▌", path: "/bold" },
   { label: "192 Frames", icon: "🎬", path: "/cinematic" },

@@ -61,7 +61,7 @@ export default function HubOverlay() {
       </div>
 
       {/* Cards grid (pointer-events re-enabled) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl w-full pointer-events-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl w-full pointer-events-auto">
         {EXPERIENCES.map((exp) => (
           <div key={exp.id} className="hub-card">
             <ExperienceCard experience={exp} />

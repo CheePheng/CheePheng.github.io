@@ -70,8 +70,8 @@ export default function HubResume() {
       <div className="max-w-3xl mx-auto">
         {/* Eyebrow */}
         <div className="hub-resume-eyebrow flex items-center gap-3 mb-4">
-          <span className="h-1 w-1 rounded-full bg-violet-300/80" />
-          <span className="text-xs font-body font-semibold text-violet-300/80 uppercase tracking-[0.2em]">
+          <span className="h-1 w-1 rounded-full bg-amber-200/70" />
+          <span className="text-xs font-body font-semibold text-amber-200/70 uppercase tracking-[0.3em]">
             Resume
           </span>
         </div>
@@ -89,7 +89,7 @@ export default function HubResume() {
               className="hub-resume-row flex items-center justify-between gap-4 py-4"
             >
               <div className="flex items-baseline gap-4 min-w-0">
-                <span className="font-body text-xs font-semibold text-violet-300/70 uppercase tracking-[0.15em] shrink-0 w-12">
+                <span className="font-body text-xs font-semibold text-amber-200/60 uppercase tracking-[0.2em] shrink-0 w-12">
                   {t.year}
                 </span>
                 <span className="font-body text-sm md:text-base text-white/80 truncate">
@@ -100,7 +100,7 @@ export default function HubResume() {
                 href={t.viewUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs font-body font-medium text-white/50 hover:text-violet-300 transition-colors shrink-0"
+                className="inline-flex items-center gap-1 text-xs font-body font-medium text-white/50 hover:text-amber-100 transition-colors shrink-0"
                 aria-label={`View ${t.label}`}
               >
                 <span className="uppercase tracking-[0.15em]">View</span>
@@ -111,9 +111,9 @@ export default function HubResume() {
         </ul>
 
         {/* Footnote */}
-        <p className="hub-resume-footnote mt-8 text-xs font-body text-white/30">
+        <p className="hub-resume-footnote mt-8 text-xs font-body text-white/50">
           Full transcripts and expanded details are available in the{" "}
-          <span className="text-violet-300/80">Case Studies</span> experience.
+          <span className="text-amber-200/70">Case Studies</span> experience.
         </p>
       </div>
     </section>

@@ -34,13 +34,13 @@ export default function MasonryProjects() {
     <section
       ref={sectionRef}
       id="projects"
-      className="relative bg-black py-20 px-6 md:px-16"
+      className="relative bg-[#0a0807] py-20 px-6 md:px-16"
     >
       <div className="max-w-7xl mx-auto">
         {/* Section label */}
         <div className="flex items-center gap-4 mb-12">
-          <div className="w-10 h-px bg-violet-500/50" />
-          <span className="text-xs font-body font-semibold uppercase tracking-[0.25em] text-white/30">
+          <div className="w-10 h-px bg-red-500/70" />
+          <span className="text-xs font-body font-semibold uppercase tracking-[0.25em] text-white/50">
             Projects
           </span>
         </div>
@@ -54,7 +54,7 @@ export default function MasonryProjects() {
         >
           {projects.map((project, i) => {
             const isFeatured = project.featured;
-            const repoUrl = `https://github.com/CheePheng/${project.repo}`;
+            const repoUrl = project.repoUrl;
             const detailUrl = `/projects/${project.slug}`;
 
             return (
@@ -65,15 +65,20 @@ export default function MasonryProjects() {
               >
                 {/* Background thumbnail */}
                 {project.thumbnail && (
-                  <img
-                    src={project.thumbnail}
-                    alt={project.name}
-                    loading="lazy"
-                    onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).style.display = "none";
-                    }}
-                    className="absolute inset-0 w-full h-full object-cover opacity-60"
-                  />
+                  <picture>
+                    <source srcSet={project.thumbnail.replace(/\.jpe?g$/i, ".avif")} type="image/avif" />
+                    <source srcSet={project.thumbnail.replace(/\.jpe?g$/i, ".webp")} type="image/webp" />
+                    <img
+                      src={project.thumbnail}
+                      alt={project.name}
+                      loading="lazy"
+                      decoding="async"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).style.display = "none";
+                      }}
+                      className="absolute inset-0 w-full h-full object-cover opacity-60"
+                    />
+                  </picture>
                 )}
 
                 {/* Dark gradient overlay */}
@@ -92,28 +97,29 @@ export default function MasonryProjects() {
                         <span key={t} className="px-2 py-0.5 text-[10px] font-body font-bold uppercase tracking-wider bg-white text-black">{t}</span>
                       ))}
                     </div>
-                    {/* Link */}
-                    <div className="flex items-center gap-3">
-                      {isFeatured ? (
-                        <Link
-                          to={detailUrl}
-                          className="inline-flex items-center gap-1 text-xs font-body font-medium text-white/70 hover:text-white transition-colors"
-                        >
-                          Case Study
-                          <ArrowUpRight className="w-3.5 h-3.5" />
-                        </Link>
-                      ) : (
-                        <a
-                          href={repoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-body font-medium text-white/70 hover:text-white transition-colors"
-                        >
-                          GitHub
-                          <ArrowUpRight className="w-3.5 h-3.5" />
-                        </a>
-                      )}
-                    </div>
+                    {(isFeatured || repoUrl) && (
+                      <div className="flex items-center gap-3">
+                        {isFeatured ? (
+                          <Link
+                            to={detailUrl}
+                            className="inline-flex items-center gap-1 text-xs font-body font-medium text-white/70 hover:text-white transition-colors"
+                          >
+                            Case Study
+                            <ArrowUpRight className="w-3.5 h-3.5" />
+                          </Link>
+                        ) : (
+                          <a
+                            href={repoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs font-body font-medium text-white/70 hover:text-white transition-colors"
+                          >
+                            GitHub
+                            <ArrowUpRight className="w-3.5 h-3.5" />
+                          </a>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

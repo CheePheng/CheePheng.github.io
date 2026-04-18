@@ -1,4 +1,4 @@
-export type ExperienceAccent = "violet" | "amber" | "white" | "cyan";
+export type ExperienceAccent = "amber" | "white" | "cyan";
 
 export interface Experience {
   id: "case-studies" | "bold" | "cinematic";
@@ -45,12 +45,6 @@ export const ACCENT_CLASSES: Record<
   ExperienceAccent,
   { bg: string; text: string; ring: string; glow: string }
 > = {
-  violet: {
-    bg: "bg-violet-500/15",
-    text: "text-violet-300",
-    ring: "ring-violet-400/40",
-    glow: "shadow-[0_0_60px_-15px_rgba(139,92,246,0.5)]",
-  },
   amber: {
     bg: "bg-amber-500/15",
     text: "text-amber-300",

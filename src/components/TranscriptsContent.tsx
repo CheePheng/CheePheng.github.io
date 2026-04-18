@@ -52,18 +52,12 @@ export default function TranscriptsContent({ theme }: Props) {
   ].join(" ");
 
   const cardBase = isGlass
-    ? "premium-card rounded-xl p-5"
+    ? "bg-white/[0.02] border border-white/[0.08] rounded-xl p-5 transition-colors hover:border-white/20"
     : isEditorial
       ? "bg-white/[0.03] border border-white/[0.06] rounded-xl p-5"
-      : "bg-white/[0.04] border-2 border-white/10 rounded-xl p-5";
+      : "bg-white/[0.04] border border-white/20 rounded-xl p-5";
 
-  const accentBorder = isGlass
-    ? "border-l-2 border-l-violet-500/60"
-    : isBold
-      ? "border-l-4 border-l-white"
-      : "border-l-2 border-l-white/20";
-
-  const accentColor = isGlass ? "text-violet-400" : "text-white/60";
+  const accentColor = isGlass ? "text-white/80" : "text-white/60";
 
   return (
     <section ref={sectionRef} id="resume" className={sectionClasses}>
@@ -73,24 +67,24 @@ export default function TranscriptsContent({ theme }: Props) {
           {isGlass && (
             <div className="flex items-center gap-3 mb-4">
               <div className="glow-dot" />
-              <span className="text-xs font-body font-semibold text-violet-300/70 uppercase tracking-[0.2em]">
+              <span className="text-xs font-body font-semibold text-amber-200/70 uppercase tracking-[0.3em]">
                 Academic Records
               </span>
               <div className="glow-dot" />
             </div>
           )}
           {isEditorial && (
-            <span className="text-xs font-body font-semibold text-white/40 uppercase tracking-[0.2em] mb-4 block">
+            <span className="text-xs font-body font-semibold text-white/55 uppercase tracking-[0.2em] mb-4 block">
               Academic Records
             </span>
           )}
           <h2
             className={
               isBold
-                ? "text-6xl md:text-8xl font-heading font-black uppercase tracking-tight text-white"
+                ? "text-6xl md:text-8xl font-body font-black uppercase tracking-tight text-white"
                 : isEditorial
                   ? "text-3xl md:text-4xl font-heading italic text-white/90 tracking-tight"
-                  : "text-4xl md:text-5xl font-heading italic gradient-text tracking-tight"
+                  : "text-4xl md:text-5xl font-heading italic text-white tracking-tight"
             }
           >
             {isBold ? "TRANSCRIPTS" : "Transcripts"}
@@ -102,7 +96,7 @@ export default function TranscriptsContent({ theme }: Props) {
           {transcripts.map((t) => (
             <div
               key={`${t.year}-${t.label}`}
-              className={`transcript-card ${cardBase} ${accentBorder}`}
+              className={`transcript-card ${cardBase}`}
             >
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div className="flex items-start gap-4">
@@ -111,8 +105,8 @@ export default function TranscriptsContent({ theme }: Props) {
                       isBold
                         ? "text-3xl text-white"
                         : isGlass
-                          ? "text-lg text-violet-300/80"
-                          : "text-lg text-white/40"
+                          ? "text-lg text-amber-200/70"
+                          : "text-lg text-white/55"
                     }`}
                   >
                     {t.year}
@@ -120,7 +114,7 @@ export default function TranscriptsContent({ theme }: Props) {
                   <div>
                     <span
                       className={`text-xs font-body font-semibold uppercase tracking-wider ${
-                        isGlass ? "text-violet-300/60" : "text-white/40"
+                        isGlass ? "text-amber-200/60" : "text-white/55"
                       }`}
                     >
                       {t.label}
@@ -135,9 +129,9 @@ export default function TranscriptsContent({ theme }: Props) {
                     href={t.viewUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-body font-medium transition-colors ${
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-body font-medium transition-colors ${
                       isGlass
-                        ? "bg-violet-500/10 text-violet-300 hover:bg-violet-500/20"
+                        ? "bg-amber-500/10 text-amber-200 hover:bg-amber-500/20"
                         : "bg-white/[0.06] text-white/60 hover:bg-white/10"
                     }`}
                   >
@@ -148,7 +142,7 @@ export default function TranscriptsContent({ theme }: Props) {
                     href={t.downloadUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-body font-medium transition-colors ${accentColor} ${
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-body font-medium transition-colors ${accentColor} ${
                       isGlass
                         ? "bg-white/[0.04] hover:bg-white/[0.08]"
                         : "bg-white/[0.04] hover:bg-white/[0.08]"

@@ -1,73 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 213 45% 67%;
-    --foreground: 0 0% 100%;
-
-    --card: 213 45% 67%;
-    --card-foreground: 0 0% 100%;
-
-    --popover: 213 45% 67%;
-    --popover-foreground: 0 0% 100%;
-
-    --primary: 0 0% 100%;
-    --primary-foreground: 213 45% 67%;
-
-    --secondary: 213 45% 57%;
-    --secondary-foreground: 0 0% 100%;
-
-    --muted: 213 30% 60%;
-    --muted-foreground: 0 0% 100%;
-
-    --accent: 213 45% 57%;
-    --accent-foreground: 0 0% 100%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 0 0% 100%;
-    --input: 0 0% 100%;
-    --ring: 0 0% 100%;
-
-    --radius: 9999px;
-
-  }
-
-  .dark {
-    --background: 220 20% 10%;
+    --background: 240 30% 5%;
     --foreground: 0 0% 95%;
-
-    --card: 220 20% 12%;
-    --card-foreground: 0 0% 95%;
-
-    --popover: 220 20% 12%;
-    --popover-foreground: 0 0% 95%;
-
-    --primary: 0 0% 95%;
-    --primary-foreground: 220 20% 10%;
-
-    --secondary: 220 15% 20%;
-    --secondary-foreground: 0 0% 95%;
-
-    --muted: 220 15% 18%;
-    --muted-foreground: 0 0% 65%;
-
-    --accent: 220 15% 20%;
-    --accent-foreground: 0 0% 95%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 95%;
-
     --border: 220 15% 25%;
-    --input: 220 15% 25%;
     --ring: 0 0% 80%;
+    --secondary: 220 15% 20%;
+    --muted-foreground: 0 0% 65%;
   }
-
 }
 
 @layer base {
@@ -107,7 +50,7 @@
   height: 700px;
   top: -10%;
   left: -10%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(50, 110, 130, 0.14) 0%, transparent 70%);
   animation: aurora-drift-1 25s ease-in-out infinite;
 }
 
@@ -116,7 +59,7 @@
   height: 600px;
   top: 30%;
   right: -15%;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(220, 150, 90, 0.1) 0%, transparent 70%);
   animation: aurora-drift-2 30s ease-in-out infinite;
 }
 
@@ -125,7 +68,7 @@
   height: 500px;
   bottom: 20%;
   left: 20%;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(80, 100, 125, 0.09) 0%, transparent 70%);
   animation: aurora-drift-3 35s ease-in-out infinite;
 }
 
@@ -134,7 +77,7 @@
   height: 400px;
   bottom: -5%;
   right: 30%;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.07) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(205, 120, 70, 0.07) 0%, transparent 70%);
   animation: aurora-drift-4 20s ease-in-out infinite;
 }
 
@@ -193,9 +136,9 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(139, 92, 246, 0.25) 20%,
-    rgba(99, 102, 241, 0.4) 50%,
-    rgba(139, 92, 246, 0.25) 80%,
+    rgba(230, 210, 170, 0.22) 20%,
+    rgba(230, 210, 170, 0.35) 50%,
+    rgba(230, 210, 170, 0.22) 80%,
     transparent 100%
   );
   position: relative;
@@ -208,7 +151,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(139, 92, 246, 0.15),
+    rgba(230, 210, 170, 0.12),
     transparent
   );
   filter: blur(8px);
@@ -271,55 +214,12 @@
     pointer-events: none;
   }
 
-  /* Premium card with gradient border on hover */
-  .premium-card {
-    background: rgba(255, 255, 255, 0.02);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
-  }
-  .premium-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(
-      135deg,
-      rgba(99, 102, 241, 0) 0%,
-      rgba(139, 92, 246, 0) 50%,
-      rgba(99, 102, 241, 0) 100%
-    );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    transition: background 0.4s ease;
-  }
-  .premium-card:hover {
-    border-color: rgba(139, 92, 246, 0.15);
-    background: rgba(255, 255, 255, 0.04);
-    box-shadow: 0 0 40px rgba(139, 92, 246, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.1);
-  }
-  .premium-card:hover::before {
-    background: linear-gradient(
-      135deg,
-      rgba(99, 102, 241, 0.5) 0%,
-      rgba(139, 92, 246, 0.3) 50%,
-      rgba(59, 130, 246, 0.5) 100%
-    );
-  }
-
-  /* Glowing accent dot */
+  /* Accent dot — solid amber, no glow */
   .glow-dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #8b5cf6;
-    box-shadow: 0 0 12px rgba(139, 92, 246, 0.6), 0 0 30px rgba(139, 92, 246, 0.2);
+    background: rgba(230, 210, 170, 0.9);
   }
 }
 
@@ -337,7 +237,7 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 .editorial-number {
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Literata Variable', 'Literata', Georgia, serif;
   font-style: italic;
   font-size: clamp(3rem, 6vw, 5rem);
   line-height: 0.9;
@@ -366,7 +266,7 @@
   box-shadow: 6px 6px 0 0 rgba(255, 255, 255, 0.85);
 }
 .bold-tile-number {
-  font-family: 'Instrument Serif', serif;
+  font-family: 'Literata Variable', 'Literata', Georgia, serif;
   font-style: italic;
   font-size: clamp(4rem, 10vw, 8rem);
   line-height: 0.85;
@@ -390,33 +290,38 @@
   background-size: 32px 32px;
 }
 
-/* Animated gradient text */
-.gradient-text {
-  background: linear-gradient(135deg, #e2e8f0 0%, #c4b5fd 40%, #a78bfa 60%, #e2e8f0 100%);
-  background-size: 200% 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradient-shift 8s ease infinite;
-}
-
-@keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
 /* Skill tag hover glow */
 .skill-tag {
   transition: all 0.3s ease;
 }
 .skill-tag:hover {
-  background: rgba(139, 92, 246, 0.15);
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.1);
-  border-color: rgba(139, 92, 246, 0.3);
+  background: rgba(230, 210, 170, 0.12);
+  border-color: rgba(230, 210, 170, 0.28);
 }
 
 /* ═══════════════════════════════════════════
-   MOBILE PERFORMANCE — reduce blur cost
+   SURFACE TRANSLUCENT — single source of truth
+   Replaces all inline backdrop-filter usages.
+   ═══════════════════════════════════════════ */
+
+.surface-translucent {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.surface-translucent-strong {
+  background: rgba(15, 15, 25, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.surface-translucent-editorial {
+  background: rgba(3, 7, 18, 0.90);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE PERFORMANCE — halve blur cost
    ═══════════════════════════════════════════ */
 
 @media (max-width: 768px) {
@@ -428,6 +333,18 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
   }
+  .surface-translucent {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .surface-translucent-strong {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .surface-translucent-editorial {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
 }
 
 /* ═══════════════════════════════════════════
@@ -435,7 +352,7 @@
    ═══════════════════════════════════════════ */
 
 button:focus-visible, a:focus-visible {
-  outline: 2px solid rgba(139, 92, 246, 0.6);
+  outline: 2px solid rgba(245, 225, 160, 0.7);
   outline-offset: 2px;
 }
 
@@ -453,7 +370,7 @@ button:focus-visible, a:focus-visible {
   height: 600px;
   top: -10%;
   left: -5%;
-  background: rgba(139, 92, 246, 0.18);
+  background: rgba(220, 150, 90, 0.15);
 }
 .hub-orb-2 {
   width: 500px;
@@ -481,7 +398,7 @@ button:focus-visible, a:focus-visible {
 }
 .hub-particle {
   position: absolute;
-  background: rgba(165, 140, 255, 0.5);
+  background: rgba(230, 210, 170, 0.45);
   border-radius: 50%;
   pointer-events: none;
   animation: hub-float linear infinite;
@@ -499,7 +416,7 @@ button:focus-visible, a:focus-visible {
 /* ═══════════════════════════════════════════
    CINEMATIC PAGE — brighter aurora variant
    ═══════════════════════════════════════════ */
-.aurora-bg-high .aurora-orb-1 { background: rgba(99, 102, 241, 0.20); }
-.aurora-bg-high .aurora-orb-2 { background: rgba(139, 92, 246, 0.17); }
-.aurora-bg-high .aurora-orb-3 { background: rgba(59, 130, 246, 0.14); }
-.aurora-bg-high .aurora-orb-4 { background: rgba(168, 85, 247, 0.12); }
+.aurora-bg-high .aurora-orb-1 { background: radial-gradient(circle, rgba(50, 110, 130, 0.22) 0%, transparent 70%); }
+.aurora-bg-high .aurora-orb-2 { background: radial-gradient(circle, rgba(220, 150, 90, 0.17) 0%, transparent 70%); }
+.aurora-bg-high .aurora-orb-3 { background: radial-gradient(circle, rgba(80, 100, 125, 0.15) 0%, transparent 70%); }
+.aurora-bg-high .aurora-orb-4 { background: radial-gradient(circle, rgba(205, 120, 70, 0.12) 0%, transparent 70%); }

@@ -11,14 +11,6 @@ const skills = [
   "Node.js", "IoT", "Agile", "Docker",
 ];
 
-const skillColors: Record<string, string> = {
-  TypeScript: "bg-blue-400", React: "bg-cyan-400", Java: "bg-orange-400",
-  "C#": "bg-purple-400", "HTML/CSS": "bg-red-400", SQL: "bg-yellow-400",
-  "Cloud Architecture": "bg-violet-400", "Mobile Development": "bg-green-400",
-  "REST APIs": "bg-blue-400", Git: "bg-orange-400",
-  "Node.js": "bg-green-400", IoT: "bg-cyan-400", Agile: "bg-violet-400", Docker: "bg-blue-400",
-};
-
 const bio =
   "I'm Chee Pheng Ng — from Malaysia to Ireland, I pursued Computer Science at Dundalk Institute of Technology (DkIT). After completing 3 years in Software Development, I continued with an Honours year in Cloud Computing, graduating in 2025. Now I'm focused on building AI-powered applications and modern full-stack solutions.";
 
@@ -112,13 +104,13 @@ export default function AboutContent({ theme }: Props) {
   ].join(" ");
 
   const cardBase = isGlass
-    ? "premium-card p-6 rounded-xl"
+    ? "bg-white/[0.02] border border-white/[0.08] p-6 rounded-xl transition-colors hover:border-white/20"
     : isEditorial
       ? "bg-white/[0.03] border border-white/[0.06] p-6 rounded-xl"
-      : "bg-white/[0.04] border-2 border-white/10 p-6 rounded-xl";
+      : "bg-white/[0.04] border border-white/20 p-6 rounded-xl";
 
   const accentColor = isGlass
-    ? "text-violet-400"
+    ? "text-amber-200"
     : isEditorial
       ? "text-white/60"
       : "text-white";
@@ -131,24 +123,24 @@ export default function AboutContent({ theme }: Props) {
           {isGlass && (
             <div className="flex items-center gap-3 mb-4">
               <div className="glow-dot" />
-              <span className="text-xs font-body font-semibold text-violet-300/70 uppercase tracking-[0.2em]">
+              <span className="text-xs font-body font-semibold text-amber-200/70 uppercase tracking-[0.3em]">
                 About Me
               </span>
               <div className="glow-dot" />
             </div>
           )}
           {isEditorial && (
-            <span className="text-xs font-body font-semibold text-white/40 uppercase tracking-[0.2em] mb-4 block">
+            <span className="text-xs font-body font-semibold text-white/55 uppercase tracking-[0.2em] mb-4 block">
               About Me
             </span>
           )}
           <h2
             className={
               isBold
-                ? "text-6xl md:text-8xl font-heading font-black uppercase tracking-tight text-white"
+                ? "text-6xl md:text-8xl font-body font-black uppercase tracking-tight text-white"
                 : isEditorial
                   ? "text-3xl md:text-4xl font-heading italic text-white/90 tracking-tight"
-                  : "text-4xl md:text-5xl font-heading italic gradient-text tracking-tight"
+                  : "text-4xl md:text-5xl font-heading italic text-white tracking-tight"
             }
           >
             {isBold ? "ABOUT" : "About Me"}
@@ -174,13 +166,12 @@ export default function AboutContent({ theme }: Props) {
               {skills.map((skill) => (
                 <span
                   key={skill}
-                  className={`skill-tag inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-body font-medium ${
+                  className={`skill-tag inline-flex items-center px-3 py-1 rounded-full text-xs font-body font-medium ${
                     isBold
                       ? "bg-white/10 text-white border border-white/20"
                       : "bg-white/[0.04] text-white/60 border border-white/[0.06]"
                   }`}
                 >
-                  <span className={`w-1.5 h-1.5 rounded-full ${skillColors[skill] ?? "bg-white/40"}`} />
                   {skill}
                 </span>
               ))}
@@ -198,14 +189,12 @@ export default function AboutContent({ theme }: Props) {
               return (
                 <div
                   key={edu.period}
-                  className={`${cardBase} ${cardClass} ${
-                    isGlass ? "border-l-2 border-l-violet-500/60" : isBold ? "border-l-4 border-l-white" : "border-l-2 border-l-white/20"
-                  }`}
+                  className={`${cardBase} ${cardClass}`}
                 >
                   <div className="flex items-start gap-4">
                     <div
-                      className={`p-2 rounded-lg shrink-0 ${
-                        isGlass ? "bg-violet-500/10 text-violet-400" : "bg-white/[0.06] text-white/50"
+                      className={`p-2 rounded-full shrink-0 ${
+                        isGlass ? "bg-amber-500/10 text-amber-200" : "bg-white/[0.06] text-white/50"
                       }`}
                     >
                       <Icon size={20} />
@@ -213,7 +202,7 @@ export default function AboutContent({ theme }: Props) {
                     <div>
                       <span
                         className={`text-xs font-body font-semibold uppercase tracking-wider ${
-                          isGlass ? "text-violet-300/60" : isBold ? "text-white/80 text-base" : "text-white/40"
+                          isGlass ? "text-amber-200/60" : isBold ? "text-white/80 text-base" : "text-white/55"
                         }`}
                       >
                         {edu.period}
@@ -221,10 +210,10 @@ export default function AboutContent({ theme }: Props) {
                       <h4 className="text-white/90 font-body font-semibold mt-1">
                         {edu.degree}
                       </h4>
-                      <p className="text-white/40 text-sm font-body">
+                      <p className="text-white/55 text-sm font-body">
                         {edu.school}
                       </p>
-                      <p className="text-white/30 text-xs font-body mt-1">
+                      <p className="text-white/50 text-xs font-body mt-1">
                         {edu.note}
                       </p>
                     </div>

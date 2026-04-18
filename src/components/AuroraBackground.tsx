@@ -57,7 +57,7 @@ const AuroraBackground = ({ intensity = "default" }: AuroraBackgroundProps) => {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(165, 140, 255, ${p.opacity})`;
+        ctx.fillStyle = `rgba(230, 210, 170, ${p.opacity})`;
         ctx.fill();
       }
 

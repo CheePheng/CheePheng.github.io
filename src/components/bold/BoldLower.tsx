@@ -56,23 +56,26 @@ export default function BoldLower() {
   );
 
   return (
-    <div ref={ref} className="relative bg-black">
+    <div ref={ref} className="relative bg-[#0a0807]">
       <section id="about" className="bl-manifesto relative py-32 md:py-40 px-6 md:px-16 border-t-2 border-white/10">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-4 mb-10">
             <span className="w-12 h-0.5 bg-white" />
             <span className="text-[10px] font-body font-bold uppercase tracking-[0.35em] text-white">§ 01 · Manifesto</span>
           </div>
-          <h2 className="font-heading font-black text-white uppercase text-6xl md:text-9xl leading-[0.85] tracking-tight">
+          <h2 className="font-body font-black text-white uppercase text-6xl md:text-9xl leading-[0.85] tracking-tight">
             {manifestoLines.map((line, i) => (
               <span key={i} className="block bl-line">
                 {line}
               </span>
             ))}
           </h2>
-          <p className="mt-12 text-white/50 font-body text-base md:text-lg leading-relaxed max-w-[56ch] border-l-2 border-white pl-6">
-            {bio}
-          </p>
+          <div className="mt-16 max-w-[56ch]">
+            <div className="w-16 h-px bg-white mb-6" />
+            <p className="text-white/60 font-body text-base md:text-lg leading-relaxed">
+              {bio}
+            </p>
+          </div>
         </div>
       </section>
 
@@ -85,8 +88,8 @@ export default function BoldLower() {
           <ul className="bl-strengths grid sm:grid-cols-2 md:grid-cols-3 gap-y-2 gap-x-12 max-w-5xl">
             {skills.map((s, i) => (
               <li key={s} className="bl-strength flex items-baseline gap-4 border-b border-white/15 py-4">
-                <span className="font-body text-xs text-white/40 font-mono tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-                <span className="font-heading font-black uppercase text-white text-xl md:text-2xl tracking-tight">{s}</span>
+                <span className="font-body text-xs text-white/55 font-mono tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                <span className="font-body font-black uppercase text-white text-xl md:text-2xl tracking-tight">{s}</span>
               </li>
             ))}
           </ul>
@@ -110,7 +113,7 @@ export default function BoldLower() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <span className="font-heading font-black text-white text-3xl block leading-none mb-2">{t.year}</span>
+                    <span className="font-body font-black text-white text-3xl block leading-none mb-2">{t.year}</span>
                     <span className="text-[10px] font-body font-bold text-white/50 uppercase tracking-[0.2em] block mb-1">{t.label}</span>
                     <span className="font-body text-white/80 text-sm">{t.title}</span>
                   </div>
@@ -129,7 +132,7 @@ export default function BoldLower() {
             <span className="text-[10px] font-body font-bold uppercase tracking-[0.35em] text-white">§ 04 · Commission</span>
             <span className="w-12 h-0.5 bg-white" />
           </div>
-          <h2 className="font-heading font-black text-white uppercase text-7xl md:text-[12rem] leading-[0.82] tracking-tighter">
+          <h2 className="font-body font-black text-white uppercase text-7xl md:text-[12rem] leading-[0.82] tracking-tighter">
             <span className="block bl-cta-word">COMMISSION</span>
             <span className="block bl-cta-word text-white/20">A BUILD.</span>
           </h2>
@@ -149,7 +152,7 @@ export default function BoldLower() {
               GitHub →
             </a>
           </div>
-          <p className="mt-20 text-[10px] text-white/30 font-mono uppercase tracking-[0.3em]">
+          <p className="mt-20 text-[10px] text-white/50 font-mono uppercase tracking-[0.3em]">
             © 2026 · CHEE PHENG NG · ALL RIGHTS RESERVED
           </p>
         </div>

@@ -13,13 +13,21 @@ export default function BoldHero() {
     () => {
       if (reducedMotion || !sectionRef.current) return;
 
+      // Role label establishes itself first (reads before the massive name)
+      gsap.from(".bold-role", {
+        opacity: 0,
+        x: -30,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+
       // Filled name slides in from left
       gsap.from(".bold-name-filled", {
         x: -120,
         opacity: 0,
         duration: 0.9,
         ease: "power4.out",
-        delay: 0.1,
+        delay: 0.25,
       });
 
       // Outline name slides in from right
@@ -28,16 +36,16 @@ export default function BoldHero() {
         opacity: 0,
         duration: 0.9,
         ease: "power4.out",
-        delay: 0.2,
+        delay: 0.35,
       });
 
-      // Accent line + subtitle
+      // CTAs
       gsap.from(".bold-accent", {
         opacity: 0,
         x: -30,
         duration: 0.6,
         ease: "power2.out",
-        delay: 0.7,
+        delay: 0.75,
       });
     },
     { scope: sectionRef },
@@ -46,37 +54,39 @@ export default function BoldHero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex flex-col justify-center bg-black overflow-hidden px-6 md:px-16 pt-24 pb-16"
+      className="relative min-h-screen flex flex-col justify-center bg-[#0a0807] overflow-hidden px-6 md:px-16 pt-24 pb-16"
     >
       {/* Asymmetric large type — left-aligned */}
       <div className="max-w-7xl">
+        <h1 className="sr-only">Chee Pheng — Full Stack Developer</h1>
+
+        {/* Role label — answers "who is this" before the name lands */}
+        <div className="bold-role mb-6 flex items-center gap-4">
+          <div className="w-10 h-px bg-red-500/70" />
+          <span className="text-xs font-body font-semibold uppercase tracking-[0.25em] text-white/70">
+            Full Stack Developer
+          </span>
+        </div>
+
         {/* Filled "CHEE" */}
-        <div className="bold-name-filled leading-none select-none">
+        <div aria-hidden="true" className="bold-name-filled leading-none select-none">
           <span
-            className="block text-[18vw] sm:text-[15vw] md:text-[13vw] font-heading font-black uppercase text-white tracking-[-0.04em] leading-[0.85]"
+            className="block text-[18vw] sm:text-[15vw] md:text-[13vw] font-body font-black uppercase text-white tracking-[-0.04em] leading-[0.85]"
           >
             CHEE
           </span>
         </div>
 
         {/* Outline "PHENG" — offset slightly right */}
-        <div className="bold-name-outline leading-none select-none pl-[3vw]">
+        <div aria-hidden="true" className="bold-name-outline leading-none select-none pl-[3vw]">
           <span
-            className="block text-[18vw] sm:text-[15vw] md:text-[13vw] font-heading font-black uppercase tracking-[-0.04em] leading-[0.85]"
+            className="block text-[18vw] sm:text-[15vw] md:text-[13vw] font-body font-black uppercase tracking-[-0.04em] leading-[0.85]"
             style={{
               color: "transparent",
               WebkitTextStroke: "1px rgba(255,255,255,0.25)",
             }}
           >
             PHENG
-          </span>
-        </div>
-
-        {/* Accent line + subtitle */}
-        <div className="bold-accent mt-8 flex items-center gap-4">
-          <div className="w-10 h-px bg-violet-500/50" />
-          <span className="text-xs font-body font-semibold uppercase tracking-[0.25em] text-white/40">
-            Full Stack Developer
           </span>
         </div>
 
@@ -92,7 +102,7 @@ export default function BoldHero() {
             href="https://github.com/CheePheng"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-body text-white/40 hover:text-white/70 transition-colors"
+            className="text-sm font-body text-white/55 hover:text-white/70 transition-colors"
           >
             GitHub
           </a>
@@ -102,7 +112,7 @@ export default function BoldHero() {
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/20">
         <span className="text-[10px] uppercase tracking-[0.2em] font-body">Scroll</span>
-        <ChevronDown className="w-4 h-4 animate-bounce" />
+        <ChevronDown className="w-4 h-4" />
       </div>
     </section>
   );

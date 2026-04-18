@@ -3,7 +3,9 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/gsap";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { EXPERIENCES } from "@/data/experiences";
+import { CONTACT } from "@/data/contact";
 import ExperienceCard from "./ExperienceCard";
+import { Linkedin, Github } from "lucide-react";
 
 export default function HubOverlay() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -20,9 +22,14 @@ export default function HubOverlay() {
         ease: "power3.out",
       })
         .from(
-          ".hub-tagline",
-          { opacity: 0, y: 16, duration: 0.7, ease: "power2.out" },
-          "-=0.5",
+          ".hub-role",
+          { opacity: 0, y: 14, duration: 0.6, ease: "power2.out" },
+          "-=0.55",
+        )
+        .from(
+          ".hub-credential",
+          { opacity: 0, y: 10, duration: 0.5, ease: "power2.out" },
+          "-=0.35",
         )
         .from(
           ".hub-card",
@@ -33,7 +40,7 @@ export default function HubOverlay() {
             duration: 0.6,
             ease: "power2.out",
           },
-          "-=0.3",
+          "-=0.25",
         )
         .from(
           ".hub-hint",
@@ -50,13 +57,41 @@ export default function HubOverlay() {
       id="projects"
       className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 py-20 pointer-events-none"
     >
-      {/* Heading */}
+      {/* Off-world credibility links — upper-right of hero */}
+      <nav
+        aria-label="External profiles"
+        className="absolute top-6 right-6 md:top-8 md:right-8 flex items-center gap-3 pointer-events-auto"
+      >
+        <a
+          href={CONTACT.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn profile"
+          className="p-2 text-white/70 hover:text-white focus-visible:text-white transition-colors"
+        >
+          <Linkedin size={18} />
+        </a>
+        <a
+          href={CONTACT.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub profile"
+          className="p-2 text-white/70 hover:text-white focus-visible:text-white transition-colors"
+        >
+          <Github size={18} />
+        </a>
+      </nav>
+
+      {/* Heading block */}
       <div className="text-center mb-10 md:mb-14 pointer-events-none">
-        <h1 className="hub-name font-heading text-5xl md:text-7xl lg:text-8xl text-white tracking-tight mb-3">
+        <h1 className="hub-name font-heading text-5xl md:text-7xl lg:text-8xl text-white tracking-tight mb-4">
           CHEE PHENG
         </h1>
-        <p className="hub-tagline font-body text-base md:text-lg text-white/60 italic">
-          Let's build something great
+        <p className="hub-role font-body text-sm md:text-base text-white/85 tracking-wide">
+          Full-stack engineer &middot; BSc (Hons) Computing, DkIT 2025
+        </p>
+        <p className="hub-credential font-body text-xs md:text-sm text-white/55 mt-2 max-w-xl mx-auto">
+          Open for graduate roles &middot; Ireland or remote &middot; Available mid-2026
         </p>
       </div>
 
@@ -70,9 +105,8 @@ export default function HubOverlay() {
       </div>
 
       {/* Hint */}
-      <p className="hub-hint hidden md:block mt-10 md:mt-14 text-xs md:text-sm text-white/35 font-body text-center pointer-events-none">
-        Switch experiences anytime using the{" "}
-        <span className="text-violet-300/80 font-medium">menu</span> at the bottom-right.
+      <p className="hub-hint hidden md:block mt-10 md:mt-14 text-xs md:text-sm text-white/50 font-body text-center pointer-events-none">
+        Switch anytime from the menu at the bottom-right.
       </p>
     </section>
   );

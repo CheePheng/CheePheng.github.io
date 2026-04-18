@@ -8,7 +8,7 @@ export default function LoadingFallback() {
         src="/images/logo.png"
         alt="Loading…"
         className="h-14 w-14 animate-pulse"
-        style={{ filter: "drop-shadow(0 2px 12px rgba(139,92,246,0.3))" }}
+        style={{ filter: "drop-shadow(0 2px 12px rgba(245, 225, 160, 0.28))" }}
       />
     </div>
   );

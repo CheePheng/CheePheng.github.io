@@ -31,7 +31,7 @@ export default function CaseStudyLower() {
         <div className="grid md:grid-cols-12 gap-8 md:gap-12">
           <div className="md:col-span-3">
             <div className="editorial-number">§</div>
-            <div className="mt-4 text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/40">
+            <div className="mt-4 text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/55">
               Role &amp; Approach
             </div>
           </div>
@@ -44,7 +44,7 @@ export default function CaseStudyLower() {
             </p>
             <div className="grid sm:grid-cols-2 gap-8 mt-10 pt-8 border-t border-white/[0.08]">
               <div>
-                <span className="block text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/35 mb-3">Discipline</span>
+                <span className="block text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/50 mb-3">Discipline</span>
                 <ul className="space-y-1">
                   {skills.slice(0, 7).map((s) => (
                     <li key={s} className="font-body text-white/70 text-sm">{s}</li>
@@ -52,12 +52,12 @@ export default function CaseStudyLower() {
                 </ul>
               </div>
               <div>
-                <span className="block text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/35 mb-3">Education</span>
+                <span className="block text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/50 mb-3">Education</span>
                 <ul className="space-y-3">
                   {education.map((e) => (
                     <li key={e.period}>
                       <div className="font-body text-white/70 text-sm">{e.degree}</div>
-                      <div className="font-body text-white/40 text-xs mt-0.5">{e.school} · {e.period}</div>
+                      <div className="font-body text-white/55 text-xs mt-0.5">{e.school} · {e.period}</div>
                     </li>
                   ))}
                 </ul>
@@ -71,7 +71,7 @@ export default function CaseStudyLower() {
         <div className="grid md:grid-cols-12 gap-8 md:gap-12">
           <div className="md:col-span-3">
             <div className="editorial-number">Ev.</div>
-            <div className="mt-4 text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/40">
+            <div className="mt-4 text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/55">
               Evidence
             </div>
           </div>
@@ -83,9 +83,9 @@ export default function CaseStudyLower() {
               {transcripts.map((t) => (
                 <li key={`${t.year}-${t.label}`} className="flex items-baseline justify-between gap-6 py-5">
                   <div className="flex items-baseline gap-6 min-w-0">
-                    <span className="font-heading italic text-white/30 text-2xl tabular-nums shrink-0 w-16">{t.year}</span>
+                    <span className="font-heading italic text-white/50 text-2xl tabular-nums shrink-0 w-16">{t.year}</span>
                     <div className="min-w-0">
-                      <div className="text-[10px] font-body font-semibold uppercase tracking-[0.2em] text-white/40 mb-0.5">{t.label}</div>
+                      <div className="text-[10px] font-body font-semibold uppercase tracking-[0.2em] text-white/55 mb-0.5">{t.label}</div>
                       <div className="font-body text-white/75 text-sm md:text-base truncate">{t.title}</div>
                     </div>
                   </div>
@@ -109,7 +109,7 @@ export default function CaseStudyLower() {
         <div className="grid md:grid-cols-12 gap-8 md:gap-12">
           <div className="md:col-span-3">
             <div className="editorial-number">Fin.</div>
-            <div className="mt-4 text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/40">
+            <div className="mt-4 text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/55">
               Correspondence
             </div>
           </div>
@@ -122,7 +122,7 @@ export default function CaseStudyLower() {
             </p>
             <dl className="space-y-6">
               <div className="flex items-baseline gap-6 border-b border-white/[0.08] pb-4">
-                <dt className="text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/35 w-24 shrink-0">Email</dt>
+                <dt className="text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/50 w-24 shrink-0">Email</dt>
                 <dd>
                   <a href={`mailto:${contact.email}`} className="font-body text-white/85 hover:text-white border-b border-white/20 hover:border-white/60 pb-0.5 transition-colors">
                     {contact.email}
@@ -130,7 +130,7 @@ export default function CaseStudyLower() {
                 </dd>
               </div>
               <div className="flex items-baseline gap-6 border-b border-white/[0.08] pb-4">
-                <dt className="text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/35 w-24 shrink-0">Repos</dt>
+                <dt className="text-[10px] font-body font-semibold uppercase tracking-[0.25em] text-white/50 w-24 shrink-0">Repos</dt>
                 <dd>
                   <a href={contact.github} target="_blank" rel="noopener noreferrer" className="font-body text-white/85 hover:text-white border-b border-white/20 hover:border-white/60 pb-0.5 transition-colors">
                     {contact.githubLabel}
@@ -138,8 +138,8 @@ export default function CaseStudyLower() {
                 </dd>
               </div>
             </dl>
-            <p className="mt-12 text-[10px] font-body text-white/25 uppercase tracking-[0.25em]">
-              Colophon — Set in Instrument Serif &amp; Barlow. © 2026.
+            <p className="mt-12 text-[10px] font-body text-white/45 uppercase tracking-[0.25em]">
+              Colophon — Set in Literata &amp; Hanken Grotesk. © 2026.
             </p>
           </div>
         </div>

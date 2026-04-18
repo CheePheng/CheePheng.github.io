@@ -4,6 +4,7 @@ import { gsap } from "@/lib/gsap";
 import { ArrowUpRight, Github, ChevronDown } from "lucide-react";
 import CharSplit from "@/components/CharSplit";
 import { scrollTo } from "@/lib/scrollTo";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const FRAME_COUNT = 192;
 const FRAMES_CDN = "https://github.com/CheePheng/CheePheng.github.io/releases/download/assets-v1";
@@ -56,6 +57,7 @@ const ScrollFrameHero = () => {
   const lastFrameRef = useRef<number>(-1);
   const progressRef = useRef<number>(0);
   const [ready, setReady] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   // ─── Find nearest loaded frame ───
   const findNearest = (target: number): number => {
@@ -90,7 +92,7 @@ const ScrollFrameHero = () => {
 
   // ─── GSAP SCROLL TIMELINE ───
   useGSAP(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || reducedMotion) return;
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -178,10 +180,11 @@ const ScrollFrameHero = () => {
       tl.to(exitOverlayRef.current, { opacity: 0, ease: "none", duration: 0.85 }, 0);
       tl.to(exitOverlayRef.current, { opacity: 1, ease: "none", duration: 0.15 }, 0.85);
     }
-  }, { scope: containerRef });
+  }, { scope: containerRef, dependencies: [reducedMotion] });
 
   // ─── Entrance animations (non-scroll) ───
   useGSAP(() => {
+    if (reducedMotion) return;
     if (badgeRef.current) {
       gsap.from(badgeRef.current, { opacity: 0, y: 20, duration: 0.8, delay: 0.3 });
     }
@@ -195,7 +198,7 @@ const ScrollFrameHero = () => {
     if (chevronRef.current) {
       gsap.to(chevronRef.current, { y: 6, repeat: -1, yoyo: true, duration: 1, ease: "sine.inOut" });
     }
-  });
+  }, { dependencies: [reducedMotion] });
 
   // ─── CANVAS SIZING ───
   useEffect(() => {
@@ -248,6 +251,12 @@ const ScrollFrameHero = () => {
       img.src = getFrameSrc(index + 1); // files are 1-indexed (00001.png)
     };
 
+    // Reduced motion: load only the opening frame; no scroll timeline is active.
+    if (reducedMotion) {
+      load(0);
+      return;
+    }
+
     // Batch 1: key frames for instant scroll coverage (sparser on mobile)
     const step = window.innerWidth < 768 ? 16 : 8;
     const keyFrames = [0, ...Array.from({ length: FRAME_COUNT }, (_, i) => i).filter((i) => i % step === 0)];
@@ -264,19 +273,33 @@ const ScrollFrameHero = () => {
     }, 200);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <>
-      {/* 180vh on mobile, 400vh on desktop */}
-      <div ref={containerRef} id="home" className="h-[180vh] md:h-[400vh]">
+      {/* Skip link — visible only when focused. Bypasses the scroll hero for keyboard users. */}
+      <a
+        href="#about"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:text-sm focus:font-body focus:font-semibold focus:shadow-lg"
+      >
+        Skip to main content
+      </a>
+
+      {/* Scroll-driven hero. Collapses to a single static screen under reduced-motion. */}
+      <div
+        ref={containerRef}
+        id="home"
+        role="region"
+        aria-label="Introduction"
+        className={reducedMotion ? "h-screen" : "h-[180vh] md:h-[400vh]"}
+      >
         <div className="sticky top-0 h-screen w-full overflow-hidden">
 
           {/* Dark background shown while frames load */}
-          <div className="absolute inset-0 bg-[#07070d]" />
+          <div className="absolute inset-0 bg-[#07070d]" aria-hidden="true" />
 
           {/* ─── CANVAS (dolly-zoom) ─── */}
-          <div ref={canvasWrapperRef} className="absolute inset-0">
+          <div ref={canvasWrapperRef} className="absolute inset-0" aria-hidden="true">
             <canvas
               ref={canvasRef}
               className="absolute inset-0 w-full h-full"
@@ -288,12 +311,14 @@ const ScrollFrameHero = () => {
           <div
             ref={overlayRef}
             className="absolute inset-0 bg-black pointer-events-none"
+            aria-hidden="true"
           />
 
           {/* Exit fade to dark */}
           <div
             ref={exitOverlayRef}
             className="absolute inset-0 pointer-events-none"
+            aria-hidden="true"
             style={{
               background: "linear-gradient(to bottom, rgba(7,7,13,0.3) 0%, rgba(7,7,13,1) 70%)",
             }}
@@ -302,6 +327,7 @@ const ScrollFrameHero = () => {
           {/* Vignette */}
           <div
             className="absolute inset-0 pointer-events-none"
+            aria-hidden="true"
             style={{
               background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.3) 100%)",
             }}
@@ -312,6 +338,8 @@ const ScrollFrameHero = () => {
               ════════════════════════════════════ */}
           <div
             ref={heroTextRef}
+            role="group"
+            aria-label="Introduction and open-to-work status"
             className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6"
           >
             <div
@@ -401,8 +429,10 @@ const ScrollFrameHero = () => {
           </div>
 
           {/* ─── SCROLL INDICATOR ─── */}
+          {!reducedMotion && (
           <div
             ref={scrollIndicatorRef}
+            aria-hidden="true"
             className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1.5"
           >
             <span
@@ -415,12 +445,18 @@ const ScrollFrameHero = () => {
               <ChevronDown className="h-4 w-4 text-white/60" style={{ filter: "drop-shadow(0 1px 4px rgba(0,0,0,0.5))" }} />
             </div>
           </div>
+          )}
 
           {/* ════════════════════════════════════
               SCENE 2: UNDERWATER TEXT (koi fish)
+              Under reduced-motion, scene 2 is suppressed — scene 1 already contains
+              the same CTA, and the timeline that would reveal this scene isn't running.
               ════════════════════════════════════ */}
+          {!reducedMotion && (
           <div
             ref={underwaterRef}
+            role="group"
+            aria-label="Secondary call to action"
             className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6"
           >
             <h2
@@ -446,6 +482,7 @@ const ScrollFrameHero = () => {
               </button>
             </div>
           </div>
+          )}
         </div>
       </div>
     </>

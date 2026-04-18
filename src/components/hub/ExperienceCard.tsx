@@ -63,7 +63,7 @@ export default function ExperienceCard({ experience }: Props) {
         <p className="font-body text-sm text-white/50 leading-relaxed">
           {experience.description}
         </p>
-        <div className="mt-4 flex items-center gap-1.5 text-xs text-white/30 group-hover:text-white/70 transition-colors">
+        <div className="mt-4 flex items-center gap-1.5 text-xs text-white/50 group-hover:text-white/70 transition-colors">
           <span className="font-body uppercase tracking-[0.15em]">Enter</span>
           <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
         </div>

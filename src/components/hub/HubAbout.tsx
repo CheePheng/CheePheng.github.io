@@ -4,15 +4,19 @@ import { gsap } from "@/lib/gsap";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const bio =
-  "I'm Chee Pheng Ng — from Malaysia to Ireland, I pursued Computer Science at Dundalk Institute of Technology (DkIT). After completing 3 years in Software Development, I continued with an Honours year in Cloud Computing, graduating in 2025. Now I'm focused on building AI-powered applications and modern full-stack solutions.";
+  "Chee Pheng Ng — Malaysia to Ireland. BSc Software Development, then an Honours year in Cloud Computing at Dundalk IT, graduated 2025. Since then I've shipped four solo engineering studies (CoPilot, PartyAI, KinshipPro, AdCopyGen) and a 3D portfolio at 3d-cheepheng-portfolio.cheepheng.workers.dev. The site you're reading is the fifth — five distinct experiences under one hub, each a different framing of the same work.";
 
 const skills = [
   "TypeScript",
   "React",
-  "Cloud Architecture",
   "Node.js",
-  "Java",
+  "Electron",
+  "Three.js",
+  "GSAP",
+  "PWA",
+  "Claude API",
   "SQL",
+  "Cloud",
 ];
 
 export default function HubAbout() {
@@ -93,8 +97,8 @@ export default function HubAbout() {
       <div className="max-w-3xl mx-auto">
         {/* Eyebrow */}
         <div className="hub-about-eyebrow flex items-center gap-3 mb-4">
-          <span className="h-1 w-1 rounded-full bg-violet-300/80" />
-          <span className="text-xs font-body font-semibold text-violet-300/80 uppercase tracking-[0.2em]">
+          <span className="h-1 w-1 rounded-full bg-amber-200/70" />
+          <span className="text-xs font-body font-semibold text-amber-200/70 uppercase tracking-[0.3em]">
             About
           </span>
         </div>
@@ -122,8 +126,8 @@ export default function HubAbout() {
         </div>
 
         {/* Education blurb */}
-        <p className="hub-about-education font-body text-sm text-white/40">
-          <span className="text-violet-300/80">BSc (Hons) Computing</span>
+        <p className="hub-about-education font-body text-sm text-white/55">
+          <span className="text-amber-200/70">BSc (Hons) Computing</span>
           {" — Dundalk Institute of Technology, 2025"}
         </p>
       </div>

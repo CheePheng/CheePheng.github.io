@@ -12,23 +12,22 @@ const ProjectDetailPage = React.lazy(() => import("@/pages/ProjectDetailPage"));
 const NotFound = React.lazy(() => import("@/pages/NotFound"));
 
 const App = () => (
-  <div className="dark">
-    <HashRouter>
-      <ExperienceSwitcher />
-      <Suspense fallback={<LoadingFallback />}>
-        <Routes>
-          <Route element={<PageTransition />}>
-            <Route path="/" element={<HubPage />} />
-            <Route path="/case-studies" element={<CaseStudiesPage />} />
-            <Route path="/bold" element={<BoldTypePage />} />
-            <Route path="/cinematic" element={<CinematicPage />} />
-            <Route path="/projects/:slug" element={<ProjectDetailPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </Suspense>
-    </HashRouter>
-  </div>
+  <HashRouter>
+    <ExperienceSwitcher />
+    <Suspense fallback={<LoadingFallback />}>
+      <Routes>
+        <Route element={<PageTransition />}>
+          <Route path="/" element={<CaseStudiesPage />} />
+          <Route path="/case-studies" element={<CaseStudiesPage />} />
+          <Route path="/hub" element={<HubPage />} />
+          <Route path="/bold" element={<BoldTypePage />} />
+          <Route path="/cinematic" element={<CinematicPage />} />
+          <Route path="/projects/:slug" element={<ProjectDetailPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </Suspense>
+  </HashRouter>
 );
 
 export default App;

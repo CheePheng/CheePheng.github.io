@@ -3,9 +3,10 @@ import { Outlet, useLocation } from "react-router-dom";
 import gsap from "gsap";
 
 const TITLES: Record<string, string> = {
-  "/": "Chee Pheng — Full Stack Developer",
+  "/": "Chee Pheng — Full-Stack Developer",
   "/case-studies": "Chee Pheng — Project Case Studies",
-  "/bold": "Chee Pheng — Portfolio",
+  "/hub": "Chee Pheng — Hub",
+  "/bold": "Chee Pheng — Bold Type",
   "/cinematic": "Chee Pheng — Cinematic Experience",
 };
 

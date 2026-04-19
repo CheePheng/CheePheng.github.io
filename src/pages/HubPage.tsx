@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
-import HubFallback from "@/components/hub/HubFallback";
 import HubOverlay from "@/components/hub/HubOverlay";
 import HubAbout from "@/components/hub/HubAbout";
 import HubResume from "@/components/hub/HubResume";
@@ -20,8 +19,6 @@ export default function HubPage() {
       <Navbar theme="hub" />
 
       <div className="relative h-screen w-full overflow-hidden">
-        <HubFallback />
-
         <div
           className="absolute inset-0 pointer-events-none"
           style={{

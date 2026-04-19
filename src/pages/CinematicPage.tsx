@@ -18,7 +18,7 @@ function CinematicColophon() {
 export default function CinematicPage() {
   return (
     <div className="min-h-screen relative bg-[#07070d]">
-      <AuroraBackground intensity="high" />
+      <AuroraBackground />
 
       <Navbar theme="cinematic" />
 

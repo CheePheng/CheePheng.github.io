@@ -344,7 +344,7 @@ const ScrollFrameHero = () => {
           >
             <div
               ref={badgeRef}
-              className="liquid-glass rounded-2xl sm:rounded-full px-3 py-2 sm:px-1 sm:py-1 flex flex-col sm:flex-row items-center gap-1 sm:gap-2 mb-4"
+              className="surface-translucent rounded-2xl sm:rounded-full px-3 py-2 sm:px-1 sm:py-1 flex flex-col sm:flex-row items-center gap-1 sm:gap-2 mb-4"
               style={{ boxShadow: "0 8px 40px rgba(0,0,0,0.4)" }}
             >
               <span
@@ -385,7 +385,7 @@ const ScrollFrameHero = () => {
             >
               <button
                 onClick={() => scrollTo("about")}
-                className="liquid-glass-strong rounded-full px-6 py-3 text-sm font-medium text-white font-body flex items-center gap-2"
+                className="surface-translucent-strong rounded-full px-6 py-3 text-sm font-medium text-white font-body flex items-center gap-2"
                 style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}
               >
                 View Projects
@@ -410,7 +410,7 @@ const ScrollFrameHero = () => {
             className="absolute bottom-16 left-0 right-0 z-10 flex flex-col items-center gap-3"
           >
             <span
-              className="liquid-glass rounded-full px-3.5 py-1 text-xs font-medium text-white font-body"
+              className="surface-translucent rounded-full px-3.5 py-1 text-xs font-medium text-white font-body"
               style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.3)" }}
             >
               Tech Stack
@@ -474,7 +474,7 @@ const ScrollFrameHero = () => {
             <div className="mt-8">
               <button
                 onClick={() => scrollTo("about")}
-                className="liquid-glass-strong rounded-full px-6 py-3 text-sm font-medium text-white font-body flex items-center gap-2"
+                className="surface-translucent-strong rounded-full px-6 py-3 text-sm font-medium text-white font-body flex items-center gap-2"
                 style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}
               >
                 Explore Below

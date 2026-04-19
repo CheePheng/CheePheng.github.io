@@ -1,10 +1,6 @@
 import { useEffect, useRef } from "react";
 
-interface AuroraBackgroundProps {
-  intensity?: "default" | "high";
-}
-
-const AuroraBackground = ({ intensity = "default" }: AuroraBackgroundProps) => {
+const AuroraBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -78,25 +74,13 @@ const AuroraBackground = ({ intensity = "default" }: AuroraBackgroundProps) => {
 
   return (
     <>
-      {/* CSS aurora mesh gradients */}
-      <div
-        className={`aurora-bg${intensity === "high" ? " aurora-bg-high" : ""}`}
-        aria-hidden="true"
-      >
-        <div className="aurora-orb aurora-orb-1" />
-        <div className="aurora-orb aurora-orb-2" />
-        <div className="aurora-orb aurora-orb-3" />
-        <div className="aurora-orb aurora-orb-4" />
-      </div>
-      {/* Particle canvas */}
+      <div className="aurora-bg" aria-hidden="true" />
       <canvas
         ref={canvasRef}
         className="fixed inset-0 pointer-events-none z-[1]"
         style={{ opacity: 0.6 }}
         aria-hidden="true"
       />
-      {/* Noise texture overlay — hidden on mobile for GPU performance */}
-      <div className="noise-overlay hidden md:block" aria-hidden="true" />
     </>
   );
 };

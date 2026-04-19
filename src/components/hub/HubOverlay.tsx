@@ -67,7 +67,7 @@ export default function HubOverlay() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn profile"
-          className="p-2 text-white/70 hover:text-white focus-visible:text-white transition-colors"
+          className="inline-block p-2 text-white/70 hover:text-white focus-visible:text-white transition-[color,transform] duration-200 ease-[var(--ease-out-quart)] hover:scale-110 hover:-translate-y-0.5 focus-visible:scale-110 focus-visible:-translate-y-0.5"
         >
           <Linkedin size={18} />
         </a>
@@ -76,7 +76,7 @@ export default function HubOverlay() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub profile"
-          className="p-2 text-white/70 hover:text-white focus-visible:text-white transition-colors"
+          className="inline-block p-2 text-white/70 hover:text-white focus-visible:text-white transition-[color,transform] duration-200 ease-[var(--ease-out-quart)] hover:scale-110 hover:-translate-y-0.5 focus-visible:scale-110 focus-visible:-translate-y-0.5"
         >
           <Github size={18} />
         </a>

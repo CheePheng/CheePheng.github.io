@@ -10,6 +10,10 @@
     --ring: 0 0% 80%;
     --secondary: 220 15% 20%;
     --muted-foreground: 0 0% 65%;
+
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
@@ -411,6 +415,7 @@ button:focus-visible, a:focus-visible {
 }
 @media (prefers-reduced-motion: reduce) {
   .hub-orb, .hub-particle { animation: none; }
+  .aurora-orb-1, .aurora-orb-2, .aurora-orb-3, .aurora-orb-4 { animation: none; }
 }
 
 /* ═══════════════════════════════════════════

@@ -43,14 +43,14 @@ export default function PageTransition() {
 
     if (prefersReducedMotion()) {
       // Instant swap — no animation
-      gsap.set(wrapperRef.current, { opacity: 1 });
+      gsap.set(wrapperRef.current, { opacity: 1, y: 0 });
       return;
     }
 
     gsap.fromTo(
       wrapperRef.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.3, ease: "power1.out" }
+      { opacity: 0, y: 8 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
     );
   }, [location.pathname]);
 

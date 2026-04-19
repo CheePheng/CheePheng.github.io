@@ -92,7 +92,7 @@ const Navbar = ({ theme = "gsap" }: NavbarProps) => {
               <button
                 key={link}
                 onClick={() => scrollTo(link.toLowerCase())}
-                className="px-3 py-2 text-sm font-medium text-white/90 font-body hover:text-white transition-colors"
+                className="relative px-3 py-2 text-sm font-medium text-white/90 font-body hover:text-white transition-colors after:absolute after:left-3 after:right-3 after:bottom-1 after:h-px after:bg-white/50 after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-[var(--ease-out-quart)] hover:after:scale-x-100 focus-visible:after:scale-x-100"
               >
                 {link}
               </button>

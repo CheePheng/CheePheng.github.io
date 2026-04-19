@@ -62,8 +62,11 @@ export default function ExperienceSwitcher() {
     () => {
       if (!menuRef.current) return;
 
+      const items = menuRef.current.querySelectorAll<HTMLElement>('[role="menuitem"]');
+
       if (reducedMotion) {
         gsap.set(menuRef.current, { autoAlpha: open ? 1 : 0, y: open ? 0 : 8 });
+        gsap.set(items, { autoAlpha: open ? 1 : 0, x: 0 });
         return;
       }
 
@@ -72,6 +75,18 @@ export default function ExperienceSwitcher() {
           menuRef.current,
           { autoAlpha: 0, y: 12, scale: 0.97 },
           { autoAlpha: 1, y: 0, scale: 1, duration: 0.22, ease: "power2.out" }
+        );
+        gsap.fromTo(
+          items,
+          { autoAlpha: 0, x: -6 },
+          {
+            autoAlpha: 1,
+            x: 0,
+            duration: 0.22,
+            ease: "power2.out",
+            stagger: 0.04,
+            delay: 0.08,
+          }
         );
       } else {
         gsap.to(menuRef.current, {

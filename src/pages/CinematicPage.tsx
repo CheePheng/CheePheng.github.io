@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import AuroraBackground from "@/components/AuroraBackground";
+import CinematicGround from "@/components/CinematicGround";
 import ScrollFrameHero from "@/components/ScrollFrameHero";
 import ChapterFooter from "@/components/ChapterFooter";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -18,7 +18,7 @@ function CinematicColophon() {
 export default function CinematicPage() {
   return (
     <div className="min-h-screen relative bg-[#07070d]">
-      <AuroraBackground />
+      <CinematicGround />
 
       <Navbar theme="cinematic" />
 

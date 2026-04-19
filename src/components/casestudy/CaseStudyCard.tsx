@@ -22,9 +22,9 @@ export default function CaseStudyCard({ project, index }: Props) {
 
       gsap.from(cardRef.current, {
         opacity: 0,
-        y: 40,
-        duration: 0.7,
-        ease: "power3.out",
+        y: 14,
+        duration: 0.5,
+        ease: "power2.out",
         scrollTrigger: {
           trigger: cardRef.current,
           start: "top 85%",

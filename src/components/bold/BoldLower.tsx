@@ -19,36 +19,37 @@ export default function BoldLower() {
     () => {
       if (reducedMotion || !ref.current) return;
 
+      // Bold snaps: scale + opacity only, expo.out, short.
       gsap.from(".bl-line", {
-        y: 80,
         opacity: 0,
-        stagger: 0.12,
-        duration: 0.9,
-        ease: "power4.out",
+        scale: 0.94,
+        stagger: 0.08,
+        duration: 0.5,
+        ease: "expo.out",
         scrollTrigger: { trigger: ".bl-manifesto", start: "top 80%", once: true },
       });
       gsap.from(".bl-strength", {
         opacity: 0,
-        x: -30,
-        stagger: 0.05,
-        duration: 0.6,
-        ease: "power3.out",
+        scale: 0.97,
+        stagger: 0.04,
+        duration: 0.4,
+        ease: "expo.out",
         scrollTrigger: { trigger: ".bl-strengths", start: "top 85%", once: true },
       });
       gsap.from(".bl-doc", {
         opacity: 0,
-        y: 20,
-        stagger: 0.07,
-        duration: 0.5,
-        ease: "power2.out",
+        scale: 0.97,
+        stagger: 0.06,
+        duration: 0.4,
+        ease: "expo.out",
         scrollTrigger: { trigger: ".bl-docs", start: "top 85%", once: true },
       });
       gsap.from(".bl-cta-word", {
-        y: 60,
         opacity: 0,
-        stagger: 0.08,
-        duration: 0.8,
-        ease: "power4.out",
+        scale: 0.94,
+        stagger: 0.07,
+        duration: 0.5,
+        ease: "expo.out",
         scrollTrigger: { trigger: ".bl-cta", start: "top 80%", once: true },
       });
     },

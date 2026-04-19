@@ -97,7 +97,7 @@ const Navbar = ({ theme = "gsap" }: NavbarProps) => {
               to="/"
               className="px-4 py-1.5 text-sm font-medium font-body rounded-full flex items-center gap-1.5 bg-white text-black"
             >
-              Case Studies
+              Selected Work
               <ArrowUpRight className="h-4 w-4" />
             </Link>
           </div>
@@ -132,7 +132,7 @@ const Navbar = ({ theme = "gsap" }: NavbarProps) => {
               to="/"
               className={`${pillSurface} rounded-full px-5 min-h-[44px] text-sm font-medium font-body inline-flex items-center gap-1.5 bg-white text-black`}
             >
-              Case Studies
+              Selected Work
               <ArrowUpRight className="h-4 w-4" />
             </Link>
           ) : (

@@ -112,8 +112,8 @@ export default function HubResume() {
 
         {/* Footnote */}
         <p className="hub-resume-footnote mt-8 text-xs font-hub-body text-[color:var(--hub-ink-faint)]">
-          Full transcripts and expanded details are available in the{" "}
-          <span className="text-[color:var(--hub-green-deep)] font-semibold">Case Studies</span> experience.
+          Full transcripts and expanded details live under{" "}
+          <span className="text-[color:var(--hub-green-deep)] font-semibold">Selected Work</span>.
         </p>
       </div>
     </section>

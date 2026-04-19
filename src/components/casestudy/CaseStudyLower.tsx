@@ -15,10 +15,10 @@ export default function CaseStudyLower() {
       if (reducedMotion || !ref.current) return;
       gsap.from(".cl-block", {
         opacity: 0,
-        y: 30,
-        stagger: 0.12,
-        duration: 0.7,
-        ease: "power3.out",
+        y: 12,
+        stagger: 0.08,
+        duration: 0.5,
+        ease: "power2.out",
         scrollTrigger: { trigger: ref.current, start: "top 85%", once: true },
       });
     },

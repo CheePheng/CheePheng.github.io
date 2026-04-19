@@ -1,13 +1,12 @@
 import { useEffect, useRef } from "react";
 
-const AuroraBackground = () => {
+const CinematicGround = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // Skip particle animation on mobile — CSS aurora orbs are enough
     if (window.innerWidth < 768) {
       canvas.style.display = "none";
       return;
@@ -26,7 +25,6 @@ const AuroraBackground = () => {
     resize();
     window.addEventListener("resize", resize);
 
-    // Create floating particles
     const count = Math.floor((canvas.width * canvas.height) / 25000);
     for (let i = 0; i < count; i++) {
       particles.push({
@@ -42,7 +40,6 @@ const AuroraBackground = () => {
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw particles
       for (const p of particles) {
         p.x += p.vx;
         p.y += p.vy;
@@ -61,7 +58,6 @@ const AuroraBackground = () => {
     };
     draw();
 
-    // Observe body height changes to resize canvas
     const observer = new ResizeObserver(resize);
     observer.observe(document.body);
 
@@ -74,7 +70,7 @@ const AuroraBackground = () => {
 
   return (
     <>
-      <div className="aurora-bg" aria-hidden="true" />
+      <div className="cinematic-ground" aria-hidden="true" />
       <canvas
         ref={canvasRef}
         className="fixed inset-0 pointer-events-none z-[1]"
@@ -85,4 +81,4 @@ const AuroraBackground = () => {
   );
 };
 
-export default AuroraBackground;
+export default CinematicGround;

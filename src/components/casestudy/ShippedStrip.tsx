@@ -18,10 +18,10 @@ export default function ShippedStrip() {
       if (reducedMotion || !ref.current) return;
       gsap.from(".shipped-row", {
         opacity: 0,
-        y: 24,
-        stagger: 0.08,
-        duration: 0.6,
-        ease: "power3.out",
+        y: 10,
+        stagger: 0.05,
+        duration: 0.45,
+        ease: "power2.out",
         scrollTrigger: { trigger: ref.current, start: "top 85%", once: true },
       });
     },
@@ -32,11 +32,11 @@ export default function ShippedStrip() {
     <section
       ref={ref}
       aria-labelledby="shipped-heading"
-      className="relative z-10 py-16 md:py-20 px-6 md:px-16"
+      className="relative z-10 pt-10 md:pt-12 pb-16 md:pb-20 px-6 md:px-16"
     >
       <div className="max-w-6xl mx-auto">
         {/* Eyebrow + heading */}
-        <div className="grid md:grid-cols-12 gap-8 md:gap-12 mb-12 md:mb-16 items-end">
+        <div className="grid md:grid-cols-12 gap-6 md:gap-12 mb-8 md:mb-10 items-end">
           <div className="md:col-span-4">
             <span className="text-[10px] font-body font-semibold uppercase tracking-[0.3em] text-amber-200/60 block mb-4">
               § Live &amp; shipped

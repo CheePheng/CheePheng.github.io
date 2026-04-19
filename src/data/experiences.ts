@@ -13,7 +13,7 @@ export interface Experience {
 export const EXPERIENCES: Experience[] = [
   {
     id: "case-studies",
-    label: "Case Studies",
+    label: "Selected Work",
     path: "/case-studies",
     icon: "📖",
     accent: "amber",

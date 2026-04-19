@@ -5,7 +5,7 @@ import { Grid2X2 } from "lucide-react";
 import { gsap } from "@/lib/gsap";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
-const HOME = { label: "Home", icon: "🏠", path: "/" } as const;
+const HOME = { label: "Selected Work", icon: "📖", path: "/" } as const;
 
 const EXPERIENCES = [
   { label: "Hub", icon: "🧭", path: "/hub" },

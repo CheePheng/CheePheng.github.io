@@ -13,39 +13,36 @@ export default function BoldHero() {
     () => {
       if (reducedMotion || !sectionRef.current) return;
 
-      // Role label establishes itself first (reads before the massive name)
+      // Bold's verb is "snap": scale + opacity only, expo.out, short.
       gsap.from(".bold-role", {
         opacity: 0,
-        x: -30,
-        duration: 0.6,
-        ease: "power2.out",
+        scale: 0.97,
+        duration: 0.4,
+        ease: "expo.out",
       });
 
-      // Filled name slides in from left
       gsap.from(".bold-name-filled", {
-        x: -120,
         opacity: 0,
-        duration: 0.9,
-        ease: "power4.out",
+        scale: 0.94,
+        duration: 0.5,
+        ease: "expo.out",
+        delay: 0.15,
+      });
+
+      gsap.from(".bold-name-outline", {
+        opacity: 0,
+        scale: 0.94,
+        duration: 0.5,
+        ease: "expo.out",
         delay: 0.25,
       });
 
-      // Outline name slides in from right
-      gsap.from(".bold-name-outline", {
-        x: 120,
-        opacity: 0,
-        duration: 0.9,
-        ease: "power4.out",
-        delay: 0.35,
-      });
-
-      // CTAs
       gsap.from(".bold-accent", {
         opacity: 0,
-        x: -30,
-        duration: 0.6,
-        ease: "power2.out",
-        delay: 0.75,
+        scale: 0.96,
+        duration: 0.4,
+        ease: "expo.out",
+        delay: 0.5,
       });
     },
     { scope: sectionRef },

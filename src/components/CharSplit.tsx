@@ -8,6 +8,7 @@ interface CharSplitProps {
   className?: string;
   trigger?: boolean;
   as?: "h1" | "h2" | "span";
+  variant?: "cinematic" | "editorial";
 }
 
 export default function CharSplit({
@@ -15,6 +16,7 @@ export default function CharSplit({
   className = "",
   trigger = true,
   as: Tag = "h1",
+  variant = "cinematic",
 }: CharSplitProps) {
   const containerRef = useRef<HTMLElement>(null);
   const reducedMotion = useReducedMotion();
@@ -24,14 +26,14 @@ export default function CharSplit({
       if (reducedMotion || !containerRef.current) return;
       const chars = containerRef.current.querySelectorAll(".char");
 
+      const tween =
+        variant === "editorial"
+          ? { y: 6, opacity: 0, stagger: 0.015, duration: 0.4, ease: "power2.out" }
+          : { y: 80, opacity: 0, rotateX: -40, stagger: 0.03, duration: 0.8, ease: "power3.out" };
+
       if (trigger) {
         gsap.from(chars, {
-          y: 80,
-          opacity: 0,
-          rotateX: -40,
-          stagger: 0.03,
-          duration: 0.8,
-          ease: "power3.out",
+          ...tween,
           scrollTrigger: {
             trigger: containerRef.current,
             start: "top 80%",
@@ -39,15 +41,7 @@ export default function CharSplit({
           },
         });
       } else {
-        gsap.from(chars, {
-          y: 80,
-          opacity: 0,
-          rotateX: -40,
-          stagger: 0.03,
-          duration: 0.8,
-          ease: "power3.out",
-          delay: 0.3,
-        });
+        gsap.from(chars, { ...tween, delay: 0.3 });
       }
     },
     { scope: containerRef },

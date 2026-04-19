@@ -185,14 +185,16 @@ const ScrollFrameHero = () => {
   // ─── Entrance animations (non-scroll) ───
   useGSAP(() => {
     if (reducedMotion) return;
+    // Cinematic drifts: longer durations, y-amplitude varies by layer depth
+    // (badge rides closer to the surface, CTA drifts in from deeper).
     if (badgeRef.current) {
-      gsap.from(badgeRef.current, { opacity: 0, y: 20, duration: 0.8, delay: 0.3 });
+      gsap.from(badgeRef.current, { opacity: 0, y: 16, duration: 1.0, ease: "expo.out", delay: 0.3 });
     }
     if (descRef.current) {
-      gsap.from(descRef.current, { opacity: 0, y: 20, duration: 0.7, delay: 0.9 });
+      gsap.from(descRef.current, { opacity: 0, y: 28, duration: 1.1, ease: "expo.out", delay: 0.9 });
     }
     if (ctaRef.current) {
-      gsap.from(ctaRef.current, { opacity: 0, y: 20, duration: 0.7, delay: 1.2 });
+      gsap.from(ctaRef.current, { opacity: 0, y: 36, duration: 1.2, ease: "expo.out", delay: 1.2 });
     }
     // Chevron bounce
     if (chevronRef.current) {
@@ -310,7 +312,7 @@ const ScrollFrameHero = () => {
           {/* Atmosphere overlay */}
           <div
             ref={overlayRef}
-            className="absolute inset-0 bg-black pointer-events-none"
+            className="absolute inset-0 bg-[#07070d] pointer-events-none"
             aria-hidden="true"
           />
 

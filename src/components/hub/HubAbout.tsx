@@ -92,24 +92,24 @@ export default function HubAbout() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative w-full px-6 pt-10 md:pt-14 pb-24 md:pb-32 md:px-16 bg-[#07070d]"
+      className="relative w-full px-6 pt-10 md:pt-14 pb-24 md:pb-32 md:px-16 bg-[color:var(--hub-bg)]"
     >
       <div className="max-w-3xl mx-auto">
         {/* Eyebrow */}
         <div className="hub-about-eyebrow flex items-center gap-3 mb-4">
-          <span className="h-1 w-1 rounded-full bg-amber-200/70" />
-          <span className="text-xs font-body font-semibold text-amber-200/70 uppercase tracking-[0.3em]">
+          <span className="h-1 w-1 rounded-full bg-[color:var(--hub-green-deep)]" />
+          <span className="text-xs font-hub-body font-semibold text-[color:var(--hub-green-deep)] uppercase tracking-[0.3em]">
             About
           </span>
         </div>
 
         {/* Heading */}
-        <h2 className="hub-about-heading font-heading italic text-4xl md:text-5xl text-white tracking-tight mb-8">
+        <h2 className="hub-about-heading font-hub-display italic text-4xl md:text-5xl text-[color:var(--hub-ink)] tracking-tight mb-8">
           A quick hello.
         </h2>
 
         {/* Bio */}
-        <p className="hub-about-bio font-body text-base md:text-lg text-white/60 leading-relaxed mb-10 max-w-2xl">
+        <p className="hub-about-bio font-hub-body text-base md:text-lg text-[color:var(--hub-ink-muted)] leading-relaxed mb-10 max-w-2xl">
           {bio}
         </p>
 
@@ -118,7 +118,7 @@ export default function HubAbout() {
           {skills.map((skill) => (
             <span
               key={skill}
-              className="hub-about-skill inline-flex items-center px-3 py-1.5 rounded-full text-xs font-body font-medium bg-white/[0.04] border border-white/[0.08] text-white/70 backdrop-blur-md"
+              className="hub-about-skill inline-flex items-center px-3 py-1.5 rounded-full text-xs font-hub-body font-medium bg-[color:var(--hub-bg-elev)] border border-[color:var(--hub-border)] text-[color:var(--hub-ink-muted)]"
             >
               {skill}
             </span>
@@ -126,8 +126,8 @@ export default function HubAbout() {
         </div>
 
         {/* Education blurb */}
-        <p className="hub-about-education font-body text-sm text-white/55">
-          <span className="text-amber-200/70">BSc (Hons) Computing</span>
+        <p className="hub-about-education font-hub-body text-sm text-[color:var(--hub-ink-faint)]">
+          <span className="text-[color:var(--hub-green-deep)] font-semibold">BSc (Hons) Computing</span>
           {" — Dundalk Institute of Technology, 2025"}
         </p>
       </div>

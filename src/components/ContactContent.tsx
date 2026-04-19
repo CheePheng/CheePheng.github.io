@@ -17,6 +17,7 @@ export default function ContactContent({ theme }: Props) {
   const isGlass = theme === "gsap" || theme === "cinematic";
   const isEditorial = theme === "editorial";
   const isBold = theme === "bold";
+  const isHub = theme === "hub";
 
   useGSAP(
     () => {
@@ -64,18 +65,35 @@ export default function ContactContent({ theme }: Props) {
               Let&apos;s Connect
             </span>
           )}
+          {isHub && (
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="h-1 w-1 rounded-full bg-[color:var(--hub-green-deep)]" />
+              <span className="text-xs font-hub-body font-semibold text-[color:var(--hub-green-deep)] uppercase tracking-[0.3em]">
+                Let&apos;s Connect
+              </span>
+              <span className="h-1 w-1 rounded-full bg-[color:var(--hub-green-deep)]" />
+            </div>
+          )}
           <h2
             className={
               isBold
                 ? "text-6xl md:text-8xl font-body font-black uppercase tracking-tight text-white"
                 : isEditorial
                   ? "text-3xl md:text-4xl font-heading italic text-white/90 tracking-tight"
-                  : "text-4xl md:text-5xl font-heading italic text-white tracking-tight"
+                  : isHub
+                    ? "text-4xl md:text-5xl font-hub-display italic text-[color:var(--hub-ink)] tracking-tight"
+                    : "text-4xl md:text-5xl font-heading italic text-white tracking-tight"
             }
           >
             {isBold ? "GET IN TOUCH" : "Get In Touch"}
           </h2>
-          <p className="text-white/55 font-body font-light mt-4 max-w-xl mx-auto leading-relaxed">
+          <p
+            className={
+              isHub
+                ? "text-[color:var(--hub-ink-muted)] font-hub-body font-light mt-4 max-w-xl mx-auto leading-relaxed"
+                : "text-white/55 font-body font-light mt-4 max-w-xl mx-auto leading-relaxed"
+            }
+          >
             {CONTACT.availability}
           </p>
         </div>
@@ -84,12 +102,14 @@ export default function ContactContent({ theme }: Props) {
         <div className="contact-actions flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
             href={`mailto:${CONTACT.email}`}
-            className={`contact-btn inline-flex items-center gap-2 px-6 py-3 rounded-xl font-body font-semibold text-sm transition-colors ${
+            className={`contact-btn inline-flex items-center gap-2 px-6 py-3 rounded-xl ${isHub ? "font-hub-body" : "font-body"} font-semibold text-sm transition-colors ${
               isGlass
                 ? "bg-amber-500 hover:bg-amber-400 text-neutral-950"
                 : isBold
                   ? "bg-white text-black hover:bg-white/90"
-                  : "bg-white/10 text-white/80 hover:bg-white/20"
+                  : isHub
+                    ? "bg-[color:var(--hub-green-deep)] hover:bg-[color:var(--hub-green-soft)] text-[color:var(--hub-bg-elev)]"
+                    : "bg-white/10 text-white/80 hover:bg-white/20"
             }`}
           >
             <Mail size={16} />
@@ -100,7 +120,11 @@ export default function ContactContent({ theme }: Props) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn profile"
-            className="contact-btn inline-flex items-center gap-2 px-6 py-3 rounded-xl font-body font-semibold text-sm bg-white/[0.06] text-white/70 hover:bg-white/10 transition-colors"
+            className={
+              isHub
+                ? "contact-btn inline-flex items-center gap-2 px-6 py-3 rounded-xl font-hub-body font-semibold text-sm bg-[color:var(--hub-bg-elev)] border border-[color:var(--hub-border)] text-[color:var(--hub-ink-muted)] hover:text-[color:var(--hub-ink)] hover:border-[color:var(--hub-green-deep)] transition-colors"
+                : "contact-btn inline-flex items-center gap-2 px-6 py-3 rounded-xl font-body font-semibold text-sm bg-white/[0.06] text-white/70 hover:bg-white/10 transition-colors"
+            }
           >
             <Linkedin size={16} />
             {CONTACT.linkedinHandle}
@@ -110,7 +134,11 @@ export default function ContactContent({ theme }: Props) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub profile"
-            className="contact-btn inline-flex items-center gap-2 px-6 py-3 rounded-xl font-body font-semibold text-sm bg-white/[0.06] text-white/70 hover:bg-white/10 transition-colors"
+            className={
+              isHub
+                ? "contact-btn inline-flex items-center gap-2 px-6 py-3 rounded-xl font-hub-body font-semibold text-sm bg-[color:var(--hub-bg-elev)] border border-[color:var(--hub-border)] text-[color:var(--hub-ink-muted)] hover:text-[color:var(--hub-ink)] hover:border-[color:var(--hub-green-deep)] transition-colors"
+                : "contact-btn inline-flex items-center gap-2 px-6 py-3 rounded-xl font-body font-semibold text-sm bg-white/[0.06] text-white/70 hover:bg-white/10 transition-colors"
+            }
           >
             <Github size={16} />
             {CONTACT.githubHandle}
@@ -118,7 +146,13 @@ export default function ContactContent({ theme }: Props) {
         </div>
 
         {/* Copyright */}
-        <p className="mt-16 text-xs text-white/20 font-body">
+        <p
+          className={
+            isHub
+              ? "mt-16 text-xs text-[color:var(--hub-ink-faint)] font-hub-body"
+              : "mt-16 text-xs text-white/20 font-body"
+          }
+        >
           &copy; 2026 {CONTACT.name} &middot; Built with React, Vite &amp; Tailwind CSS
         </p>
       </div>

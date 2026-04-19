@@ -361,6 +361,46 @@ button:focus-visible, a:focus-visible {
 }
 
 /* ═══════════════════════════════════════════
+   HUB — WARM CREAM + FOREST GREEN
+   Library card, not dark dashboard. Commits fully to
+   its own palette; no token shared with other experiences.
+   ═══════════════════════════════════════════ */
+
+.hub-theme {
+  --hub-bg: oklch(94% 0.018 85);
+  --hub-bg-elev: oklch(97% 0.012 85);
+  --hub-ink: oklch(22% 0.02 80);
+  --hub-ink-muted: oklch(38% 0.02 80);
+  --hub-ink-faint: oklch(55% 0.015 80);
+  --hub-border: oklch(82% 0.018 85);
+  --hub-border-soft: oklch(88% 0.015 85);
+  --hub-green-deep: oklch(38% 0.09 155);
+  --hub-green-soft: oklch(58% 0.07 150);
+  background: var(--hub-bg);
+  color: var(--hub-ink);
+}
+
+.hub-theme button:focus-visible,
+.hub-theme a:focus-visible {
+  outline-color: oklch(38% 0.09 155 / 0.75);
+}
+
+/* Tinted ambient orbs — reuse the existing .hub-orb machinery but
+   re-skin to sage/moss/warm-cream. The drift keyframe stays identical. */
+.hub-theme .hub-orb-1 {
+  background: oklch(70% 0.06 150 / 0.45);
+}
+.hub-theme .hub-orb-2 {
+  background: oklch(80% 0.05 85 / 0.40);
+}
+.hub-theme .hub-orb-3 {
+  background: oklch(75% 0.05 140 / 0.35);
+}
+.hub-theme .hub-particle {
+  background: oklch(38% 0.09 155 / 0.35);
+}
+
+/* ═══════════════════════════════════════════
    HUB FALLBACK (mobile / reduced-motion)
    ═══════════════════════════════════════════ */
 .hub-orb {

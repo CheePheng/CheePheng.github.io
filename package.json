@@ -13,6 +13,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@fontsource-variable/besley": "^5.2.8",
+    "@fontsource-variable/commissioner": "^5.2.10",
     "@fontsource-variable/hanken-grotesk": "^5.2.8",
     "@fontsource-variable/literata": "^5.2.8",
     "@gsap/react": "^2.1.2",

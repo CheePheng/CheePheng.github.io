@@ -67,7 +67,7 @@ export default function HubOverlay() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn profile"
-          className="inline-block p-2 text-white/70 hover:text-white focus-visible:text-white transition-[color,transform] duration-200 ease-[var(--ease-out-quart)] hover:scale-110 hover:-translate-y-0.5 focus-visible:scale-110 focus-visible:-translate-y-0.5"
+          className="inline-block p-2 text-[color:var(--hub-ink-muted)] hover:text-[color:var(--hub-green-deep)] focus-visible:text-[color:var(--hub-green-deep)] transition-[color,transform] duration-200 ease-[var(--ease-out-quart)] hover:scale-110 hover:-translate-y-0.5 focus-visible:scale-110 focus-visible:-translate-y-0.5"
         >
           <Linkedin size={18} />
         </a>
@@ -76,7 +76,7 @@ export default function HubOverlay() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub profile"
-          className="inline-block p-2 text-white/70 hover:text-white focus-visible:text-white transition-[color,transform] duration-200 ease-[var(--ease-out-quart)] hover:scale-110 hover:-translate-y-0.5 focus-visible:scale-110 focus-visible:-translate-y-0.5"
+          className="inline-block p-2 text-[color:var(--hub-ink-muted)] hover:text-[color:var(--hub-green-deep)] focus-visible:text-[color:var(--hub-green-deep)] transition-[color,transform] duration-200 ease-[var(--ease-out-quart)] hover:scale-110 hover:-translate-y-0.5 focus-visible:scale-110 focus-visible:-translate-y-0.5"
         >
           <Github size={18} />
         </a>
@@ -84,13 +84,13 @@ export default function HubOverlay() {
 
       {/* Heading block */}
       <div className="text-center mb-10 md:mb-14 pointer-events-none">
-        <h1 className="hub-name font-heading text-5xl md:text-7xl lg:text-8xl text-white tracking-tight mb-4">
+        <h1 className="hub-name font-hub-display font-medium text-5xl md:text-7xl lg:text-8xl text-[color:var(--hub-ink)] tracking-[0.02em] mb-4">
           CHEE PHENG
         </h1>
-        <p className="hub-role font-body text-sm md:text-base text-white/85 tracking-wide">
+        <p className="hub-role font-hub-body text-sm md:text-base text-[color:var(--hub-ink-muted)] tracking-wide">
           Full-stack engineer &middot; BSc (Hons) Computing, DkIT 2025
         </p>
-        <p className="hub-credential font-body text-xs md:text-sm text-white/55 mt-2 max-w-xl mx-auto">
+        <p className="hub-credential font-hub-body text-xs md:text-sm text-[color:var(--hub-ink-faint)] mt-2 max-w-xl mx-auto">
           Open for graduate roles &middot; Ireland or remote &middot; Available mid-2026
         </p>
       </div>
@@ -105,7 +105,7 @@ export default function HubOverlay() {
       </div>
 
       {/* Hint */}
-      <p className="hub-hint hidden md:block mt-10 md:mt-14 text-xs md:text-sm text-white/50 font-body text-center pointer-events-none">
+      <p className="hub-hint hidden md:block mt-10 md:mt-14 text-xs md:text-sm text-[color:var(--hub-ink-faint)] font-hub-body text-center pointer-events-none">
         Switch anytime from the menu at the bottom-right.
       </p>
     </section>

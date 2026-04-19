@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { scrollTo } from "@/lib/scrollTo";
 
-export type NavTheme = "gsap" | "editorial" | "bold" | "cinematic";
+export type NavTheme = "gsap" | "editorial" | "bold" | "cinematic" | "hub";
 
 const navLinks = ["About", "Projects", "Resume"];
 
@@ -14,6 +14,12 @@ function getPillStyles(theme: NavTheme): React.CSSProperties {
       return {
         background: "rgba(10, 8, 7, 0.95)",
         boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
+      };
+    case "hub":
+      return {
+        background: "oklch(97% 0.012 85 / 0.85)",
+        border: "1px solid oklch(82% 0.018 85)",
+        boxShadow: "0 6px 20px oklch(22% 0.02 80 / 0.08)",
       };
     case "editorial":
     case "gsap":
@@ -30,6 +36,7 @@ function getPillSurfaceClass(theme: NavTheme): string {
     case "editorial":
       return "surface-translucent-editorial";
     case "bold":
+    case "hub":
       return "";
     case "gsap":
     case "cinematic":
@@ -47,6 +54,17 @@ const Navbar = ({ theme = "gsap" }: NavbarProps) => {
   const navigate = useNavigate();
   const pillStyles = getPillStyles(theme);
   const pillSurface = getPillSurfaceClass(theme);
+  const isHub = theme === "hub";
+
+  const linkClass = isHub
+    ? "relative px-3 py-2 text-sm font-medium text-[color:var(--hub-ink-muted)] font-hub-body hover:text-[color:var(--hub-ink)] transition-colors after:absolute after:left-3 after:right-3 after:bottom-1 after:h-px after:bg-[color:var(--hub-green-deep)] after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-[var(--ease-out-quart)] hover:after:scale-x-100 focus-visible:after:scale-x-100"
+    : "relative px-3 py-2 text-sm font-medium text-white/90 font-body hover:text-white transition-colors after:absolute after:left-3 after:right-3 after:bottom-1 after:h-px after:bg-white/50 after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-[var(--ease-out-quart)] hover:after:scale-x-100 focus-visible:after:scale-x-100";
+
+  const contactPillClass = isHub
+    ? "px-3.5 py-1.5 text-sm font-medium font-hub-body rounded-full flex items-center gap-1.5 bg-[color:var(--hub-ink)] text-[color:var(--hub-bg-elev)] hover:bg-[color:var(--hub-green-deep)] transition-colors"
+    : "px-3.5 py-1.5 text-sm font-medium font-body rounded-full flex items-center gap-1.5 bg-white text-black";
+
+  const hamburgerIconClass = isHub ? "h-5 w-5 text-[color:var(--hub-ink)]" : "h-5 w-5 text-white";
 
   const handleLogoClick = () => {
     navigate("/");
@@ -92,14 +110,14 @@ const Navbar = ({ theme = "gsap" }: NavbarProps) => {
               <button
                 key={link}
                 onClick={() => scrollTo(link.toLowerCase())}
-                className="relative px-3 py-2 text-sm font-medium text-white/90 font-body hover:text-white transition-colors after:absolute after:left-3 after:right-3 after:bottom-1 after:h-px after:bg-white/50 after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-[var(--ease-out-quart)] hover:after:scale-x-100 focus-visible:after:scale-x-100"
+                className={linkClass}
               >
                 {link}
               </button>
             ))}
             <button
               onClick={() => scrollTo("contact")}
-              className="px-3.5 py-1.5 text-sm font-medium font-body rounded-full flex items-center gap-1.5 bg-white text-black"
+              className={contactPillClass}
             >
               Contact
               <ArrowUpRight className="h-4 w-4" />
@@ -125,24 +143,47 @@ const Navbar = ({ theme = "gsap" }: NavbarProps) => {
                   className={`${pillSurface} rounded-full p-3`}
                   style={pillStyles}
                 >
-                  <Menu className="h-5 w-5 text-white" />
+                  <Menu className={hamburgerIconClass} />
                 </button>
               </SheetTrigger>
-              <SheetContent side="right" className="bg-gray-950 border-gray-800">
-                <SheetTitle className="text-foreground font-heading italic text-2xl mb-6">Menu</SheetTitle>
+              <SheetContent
+                side="right"
+                className={
+                  isHub
+                    ? "bg-[color:var(--hub-bg)] border-[color:var(--hub-border)]"
+                    : "bg-gray-950 border-gray-800"
+                }
+              >
+                <SheetTitle
+                  className={
+                    isHub
+                      ? "text-[color:var(--hub-ink)] font-hub-display italic text-2xl mb-6"
+                      : "text-foreground font-heading italic text-2xl mb-6"
+                  }
+                >
+                  Menu
+                </SheetTitle>
                 <div className="flex flex-col gap-4 mt-4">
                   {navLinks.map((link) => (
                     <button
                       key={link}
                       onClick={() => { scrollTo(link.toLowerCase()); setOpen(false); }}
-                      className="text-left text-lg font-body text-white/90 hover:text-white transition-colors py-3"
+                      className={
+                        isHub
+                          ? "text-left text-lg font-hub-body text-[color:var(--hub-ink-muted)] hover:text-[color:var(--hub-ink)] transition-colors py-3"
+                          : "text-left text-lg font-body text-white/90 hover:text-white transition-colors py-3"
+                      }
                     >
                       {link}
                     </button>
                   ))}
                   <button
                     onClick={() => { scrollTo("contact"); setOpen(false); }}
-                    className="mt-4 px-5 min-h-[44px] text-sm font-medium font-body rounded-full flex items-center gap-2 w-fit bg-white text-black"
+                    className={
+                      isHub
+                        ? "mt-4 px-5 min-h-[44px] text-sm font-medium font-hub-body rounded-full flex items-center gap-2 w-fit bg-[color:var(--hub-ink)] text-[color:var(--hub-bg-elev)]"
+                        : "mt-4 px-5 min-h-[44px] text-sm font-medium font-body rounded-full flex items-center gap-2 w-fit bg-white text-black"
+                    }
                   >
                     Contact
                     <ArrowUpRight className="h-4 w-4" />

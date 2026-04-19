@@ -40,27 +40,29 @@ export const EXPERIENCES: Experience[] = [
   },
 ];
 
-// Tailwind class lookups for accent colors
+// Tailwind class lookups for accent colors.
+// Calibrated for Hub's cream + ink palette: filled pills with high contrast
+// preview the destination's own identity (amber=editorial, ink=bold, teal=cinematic).
 export const ACCENT_CLASSES: Record<
   ExperienceAccent,
   { bg: string; text: string; ring: string; glow: string }
 > = {
   amber: {
-    bg: "bg-amber-500/15",
-    text: "text-amber-300",
-    ring: "ring-amber-400/40",
-    glow: "shadow-[0_0_60px_-15px_rgba(251,191,36,0.5)]",
+    bg: "bg-amber-600",
+    text: "text-amber-50",
+    ring: "ring-amber-700/50",
+    glow: "shadow-[0_8px_28px_-14px_rgba(180,110,30,0.38)]",
   },
   white: {
-    bg: "bg-white/15",
-    text: "text-white",
-    ring: "ring-white/30",
-    glow: "shadow-[0_0_60px_-15px_rgba(255,255,255,0.4)]",
+    bg: "bg-[color:var(--hub-ink)]",
+    text: "text-[color:var(--hub-bg-elev)]",
+    ring: "ring-[color:var(--hub-ink)]/40",
+    glow: "shadow-[0_8px_28px_-14px_rgba(40,34,26,0.30)]",
   },
   cyan: {
-    bg: "bg-cyan-500/15",
-    text: "text-cyan-300",
-    ring: "ring-cyan-400/40",
-    glow: "shadow-[0_0_60px_-15px_rgba(34,211,238,0.5)]",
+    bg: "bg-teal-800",
+    text: "text-teal-50",
+    ring: "ring-teal-800/50",
+    glow: "shadow-[0_8px_28px_-14px_rgba(20,70,80,0.34)]",
   },
 };

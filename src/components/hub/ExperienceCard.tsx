@@ -39,9 +39,9 @@ export default function ExperienceCard({ experience }: Props) {
       onClick={() => navigate(experience.path)}
       className={`
         group relative text-left rounded-2xl overflow-hidden w-full
-        bg-white/[0.04] backdrop-blur-md
-        border border-white/[0.08]
-        hover:border-white/20 hover:bg-white/[0.06]
+        bg-[color:var(--hub-bg-elev)]
+        border border-[color:var(--hub-border)]
+        hover:border-[color:var(--hub-green-deep)]
         transition-colors duration-300
         ${accent.glow}
         focus:outline-none focus-visible:ring-2 ${accent.ring}
@@ -52,19 +52,19 @@ export default function ExperienceCard({ experience }: Props) {
         <div className="flex items-start justify-between mb-3">
           <span className="text-2xl leading-none">{experience.icon}</span>
           <span
-            className={`text-[10px] font-body font-semibold uppercase tracking-[0.15em] px-2 py-1 rounded-full ${accent.bg} ${accent.text}`}
+            className={`text-[10px] font-hub-body font-semibold uppercase tracking-[0.15em] px-2 py-1 rounded-full ${accent.bg} ${accent.text}`}
           >
             {experience.tagline}
           </span>
         </div>
-        <h3 className="font-heading italic text-2xl text-white mb-1">
+        <h3 className="font-hub-display italic text-2xl text-[color:var(--hub-ink)] mb-1">
           {experience.label}
         </h3>
-        <p className="font-body text-sm text-white/50 leading-relaxed">
+        <p className="font-hub-body text-sm text-[color:var(--hub-ink-faint)] leading-relaxed">
           {experience.description}
         </p>
-        <div className="mt-4 flex items-center gap-1.5 text-xs text-white/50 group-hover:text-white/70 transition-colors">
-          <span className="font-body uppercase tracking-[0.15em]">Enter</span>
+        <div className="mt-4 flex items-center gap-1.5 text-xs text-[color:var(--hub-ink-muted)] group-hover:text-[color:var(--hub-green-deep)] transition-colors">
+          <span className="font-hub-body uppercase tracking-[0.15em]">Enter</span>
           <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
         </div>
       </div>

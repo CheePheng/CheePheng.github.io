@@ -17,6 +17,8 @@ export default {
       fontFamily: {
         heading: ["'Literata Variable'", "'Literata'", "Georgia", "serif"],
         body: ["'Hanken Grotesk Variable'", "'Hanken Grotesk'", "ui-sans-serif", "system-ui", "sans-serif"],
+        "hub-display": ["'Besley Variable'", "'Besley'", "'Clarendon'", "Georgia", "serif"],
+        "hub-body": ["'Commissioner Variable'", "'Commissioner'", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

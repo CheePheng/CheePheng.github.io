@@ -65,34 +65,34 @@ export default function HubResume() {
     <section
       ref={sectionRef}
       id="resume"
-      className="relative w-full px-6 py-24 md:py-32 md:px-16 bg-[#07070d]"
+      className="relative w-full px-6 py-24 md:py-32 md:px-16 bg-[color:var(--hub-bg)]"
     >
       <div className="max-w-3xl mx-auto">
         {/* Eyebrow */}
         <div className="hub-resume-eyebrow flex items-center gap-3 mb-4">
-          <span className="h-1 w-1 rounded-full bg-amber-200/70" />
-          <span className="text-xs font-body font-semibold text-amber-200/70 uppercase tracking-[0.3em]">
+          <span className="h-1 w-1 rounded-full bg-[color:var(--hub-green-deep)]" />
+          <span className="text-xs font-hub-body font-semibold text-[color:var(--hub-green-deep)] uppercase tracking-[0.3em]">
             Resume
           </span>
         </div>
 
         {/* Heading */}
-        <h2 className="hub-resume-heading font-heading italic text-4xl md:text-5xl text-white tracking-tight mb-10">
+        <h2 className="hub-resume-heading font-hub-display italic text-4xl md:text-5xl text-[color:var(--hub-ink)] tracking-tight mb-10">
           Resume.
         </h2>
 
         {/* List */}
-        <ul className="hub-resume-list divide-y divide-white/[0.06] border-t border-white/[0.06]">
+        <ul className="hub-resume-list divide-y divide-[color:var(--hub-border)] border-t border-[color:var(--hub-border)]">
           {transcripts.map((t) => (
             <li
               key={`${t.year}-${t.label}`}
               className="hub-resume-row flex items-center justify-between gap-4 py-4"
             >
               <div className="flex items-baseline gap-4 min-w-0">
-                <span className="font-body text-xs font-semibold text-amber-200/60 uppercase tracking-[0.2em] shrink-0 w-12">
+                <span className="font-hub-body text-xs font-semibold text-[color:var(--hub-green-deep)] uppercase tracking-[0.2em] shrink-0 w-12">
                   {t.year}
                 </span>
-                <span className="font-body text-sm md:text-base text-white/80 truncate">
+                <span className="font-hub-body text-sm md:text-base text-[color:var(--hub-ink)] truncate">
                   {t.title}
                 </span>
               </div>
@@ -100,7 +100,7 @@ export default function HubResume() {
                 href={t.viewUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs font-body font-medium text-white/50 hover:text-amber-100 transition-colors shrink-0"
+                className="inline-flex items-center gap-1 text-xs font-hub-body font-medium text-[color:var(--hub-ink-muted)] hover:text-[color:var(--hub-green-deep)] transition-colors shrink-0"
                 aria-label={`View ${t.label}`}
               >
                 <span className="uppercase tracking-[0.15em]">View</span>
@@ -111,9 +111,9 @@ export default function HubResume() {
         </ul>
 
         {/* Footnote */}
-        <p className="hub-resume-footnote mt-8 text-xs font-body text-white/50">
+        <p className="hub-resume-footnote mt-8 text-xs font-hub-body text-[color:var(--hub-ink-faint)]">
           Full transcripts and expanded details are available in the{" "}
-          <span className="text-amber-200/70">Case Studies</span> experience.
+          <span className="text-[color:var(--hub-green-deep)] font-semibold">Case Studies</span> experience.
         </p>
       </div>
     </section>

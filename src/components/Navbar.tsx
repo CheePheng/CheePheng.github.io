@@ -57,8 +57,8 @@ const Navbar = ({ theme = "gsap" }: NavbarProps) => {
   const isHub = theme === "hub";
 
   const linkClass = isHub
-    ? "relative px-3 py-2 text-sm font-medium text-[color:var(--hub-ink-muted)] font-hub-body hover:text-[color:var(--hub-ink)] transition-colors after:absolute after:left-3 after:right-3 after:bottom-1 after:h-px after:bg-[color:var(--hub-green-deep)] after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-[var(--ease-out-quart)] hover:after:scale-x-100 focus-visible:after:scale-x-100"
-    : "relative px-3 py-2 text-sm font-medium text-white/90 font-body hover:text-white transition-colors after:absolute after:left-3 after:right-3 after:bottom-1 after:h-px after:bg-white/50 after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-[var(--ease-out-quart)] hover:after:scale-x-100 focus-visible:after:scale-x-100";
+    ? "relative px-3 py-2 text-sm font-medium text-[color:var(--hub-ink-muted)] font-hub-body hover:text-[color:var(--hub-ink)] transition-colors after:absolute after:left-3 after:right-3 after:bottom-1 after:h-px after:bg-[color:var(--hub-green-deep)] after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-out-quart hover:after:scale-x-100 focus-visible:after:scale-x-100"
+    : "relative px-3 py-2 text-sm font-medium text-white/90 font-body hover:text-white transition-colors after:absolute after:left-3 after:right-3 after:bottom-1 after:h-px after:bg-white/50 after:origin-left after:scale-x-0 after:transition-transform after:duration-300 after:ease-out-quart hover:after:scale-x-100 focus-visible:after:scale-x-100";
 
   const contactPillClass = isHub
     ? "px-3.5 py-1.5 text-sm font-medium font-hub-body rounded-full flex items-center gap-1.5 bg-[color:var(--hub-ink)] text-[color:var(--hub-bg-elev)] hover:bg-[color:var(--hub-green-deep)] transition-colors"

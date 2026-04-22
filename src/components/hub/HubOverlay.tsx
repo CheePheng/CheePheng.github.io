@@ -67,7 +67,7 @@ export default function HubOverlay() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn profile"
-          className="inline-block p-2 text-[color:var(--hub-ink-muted)] hover:text-[color:var(--hub-green-deep)] focus-visible:text-[color:var(--hub-green-deep)] transition-[color,transform] duration-200 ease-[var(--ease-out-quart)] hover:scale-110 hover:-translate-y-0.5 focus-visible:scale-110 focus-visible:-translate-y-0.5"
+          className="inline-block p-2 text-[color:var(--hub-ink-muted)] hover:text-[color:var(--hub-green-deep)] focus-visible:text-[color:var(--hub-green-deep)] transition-[color,transform] duration-200 ease-out-quart hover:scale-110 hover:-translate-y-0.5 focus-visible:scale-110 focus-visible:-translate-y-0.5"
         >
           <Linkedin size={18} />
         </a>
@@ -76,7 +76,7 @@ export default function HubOverlay() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub profile"
-          className="inline-block p-2 text-[color:var(--hub-ink-muted)] hover:text-[color:var(--hub-green-deep)] focus-visible:text-[color:var(--hub-green-deep)] transition-[color,transform] duration-200 ease-[var(--ease-out-quart)] hover:scale-110 hover:-translate-y-0.5 focus-visible:scale-110 focus-visible:-translate-y-0.5"
+          className="inline-block p-2 text-[color:var(--hub-ink-muted)] hover:text-[color:var(--hub-green-deep)] focus-visible:text-[color:var(--hub-green-deep)] transition-[color,transform] duration-200 ease-out-quart hover:scale-110 hover:-translate-y-0.5 focus-visible:scale-110 focus-visible:-translate-y-0.5"
         >
           <Github size={18} />
         </a>
